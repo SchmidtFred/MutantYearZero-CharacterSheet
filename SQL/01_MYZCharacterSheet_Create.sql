@@ -8,14 +8,14 @@ GO
 USE [MYZCharacterSheet]
 GO
 
-DROP TABLE IF EXISTS [UserProfile];
-DROP TABLE IF EXISTS [Character];
-DROP TABLE IF EXISTS [Role];
-DROP TABLE IF EXISTS [CharacterSkill];
-DROP TABLE IF EXISTS [Skill];
-DROP TABLE IF EXISTS [CharacterTalent];
-DROP TABLE IF EXISTS [Talent];
 DROP TABLE IF EXISTS [CharacterMutation];
+DROP TABLE IF EXISTS [CharacterSkill];
+DROP TABLE IF EXISTS [CharacterTalent];
+DROP TABLE IF EXISTS [Character];
+DROP TABLE IF EXISTS [UserProfile];
+DROP TABLE IF EXISTS [Skill];
+DROP TABLE IF EXISTS [Talent];
+DROP TABLE IF EXISTS [Role];
 DROP TABLE IF EXISTS [Mutation];
 
 CREATE TABLE [UserProfile] (
@@ -50,35 +50,35 @@ CREATE TABLE [Character] (
   [CriticalInjuries] nvarchar(255),
   [RotPoints] int NOT NULL DEFAULT (0),
   [MutationPoints] int NOT NULL DEFAULT (0),
-  [Armor] nvarchar(255),
-  [Gear] nvarchar(255),
-  [TinyItems] nvarchar(255),
-  [Weapons] nvarchar(255),
-  [PcRelationship1] nvarchar(255),
-  [PcRelationship2] nvarchar(255),
-  [PcRelationship3] nvarchar(255),
-  [PcRelationship4] nvarchar(255),
+  [Armor] nvarchar(4000),
+  [Gear] nvarchar(4000),
+  [TinyItems] nvarchar(4000),
+  [Weapons] nvarchar(4000),
+  [PcRelationship1] nvarchar(4000),
+  [PcRelationship2] nvarchar(4000),
+  [PcRelationship3] nvarchar(4000),
+  [PcRelationship4] nvarchar(4000),
   [PcRelationship1Buddy] bit NOT NULL DEFAULT (0),
   [PcRelationship2Buddy] bit NOT NULL DEFAULT (0),
   [PcRelationship3Buddy] bit NOT NULL DEFAULT (0),
   [PcRelationship4Buddy] bit NOT NULL DEFAULT (0),
-  [Hate] nvarchar(255),
-  [Protect] nvarchar(255),
-  [Dream] nvarchar(255),
-  [DenDescription] nvarchar(255),
-  [DenStash] nvarchar(255)
+  [Hate] nvarchar(4000),
+  [Protect] nvarchar(4000),
+  [Dream] nvarchar(4000),
+  [DenDescription] nvarchar(4000),
+  [DenStash] nvarchar(4000)
 )
 GO
 
 CREATE TABLE [Role] (
   [Id] int PRIMARY KEY IDENTITY(1, 1),
   [Name] nvarchar(255) NOT NULL,
-  [Description] nvarchar(255) NOT NULL,
-  [KeyAttribute] nvarchar Not Null,
-  [TypicalNames] nvarchar Not Null,
-  [FaceSuggest] nvarchar Not Null,
-  [BodySuggest] nvarchar Not Null,
-  [ClothingSuggest] nvarchar Not Null,
+  [Description] nvarchar(4000) NOT NULL,
+  [KeyAttribute] nvarchar(255) Not Null,
+  [TypicalNames] nvarchar(255) Not Null,
+  [FaceSuggest] nvarchar(255) Not Null,
+  [BodySuggest] nvarchar(255) Not Null,
+  [ClothingSuggest] nvarchar(255) Not Null,
   [ImageLocation] nvarchar(255)
 )
 GO
@@ -94,8 +94,8 @@ GO
 CREATE TABLE [Skill] (
   [Id] int PRIMARY KEY IDENTITY(1, 1),
   [RoleId] int DEFAULT (null),
-  [Name] nvarchar NOT NULL,
-  [Description] nvarchar(255) NOT NULL,
+  [Name] nvarchar(255) NOT NULL,
+  [Description] nvarchar(4000) NOT NULL,
   [PageReference] int NOT NULL
 )
 GO
@@ -110,8 +110,8 @@ GO
 CREATE TABLE [Talent] (
   [Id] int PRIMARY KEY IDENTITY(1, 1),
   [RoleId] int DEFAULT (null),
-  [Name] nvarchar NOT NULL,
-  [Description] nvarchar(255) NOT NULL
+  [Name] nvarchar(255) NOT NULL,
+  [Description] nvarchar(4000) NOT NULL
 )
 GO
 
@@ -124,8 +124,8 @@ GO
 
 CREATE TABLE [Mutation] (
   [Id] int PRIMARY KEY IDENTITY(1, 1),
-  [Name] nvarchar(255) NOT NULL,
-  [Description] nvarchar(255) NOT NULL
+  [Name] nvarchar(4000) NOT NULL,
+  [Description] nvarchar(4000) NOT NULL
 )
 GO
 
