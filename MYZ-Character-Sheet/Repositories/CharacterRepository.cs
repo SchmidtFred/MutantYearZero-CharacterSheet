@@ -11,17 +11,17 @@ namespace MYZ_Character_Sheet.Repositories
     {
         public CharacterRepository(IConfiguration configuration) : base(configuration) { }
 
-        public Character GetById(int id)
-        {
-            using (var conn = Connection)
-            {
-                conn.Open();
-                using (var cmd = conn.CreateCommand())
-                {
+        //public Character GetById(int id)
+        //{
+        //    using (var conn = Connection)
+        //    {
+        //        conn.Open();
+        //        using (var cmd = conn.CreateCommand())
+        //        {
 
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
 
         private string _queryString = @"
                        SELECT c.Id AS CharacterId, c.UserProfileId, c.[Public], c.RoleId, c.[Name] AS CharacterName, c.FaceAppearance, c.BodyAppearance, c.ClothingAppearance,

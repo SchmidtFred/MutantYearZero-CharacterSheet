@@ -19,12 +19,12 @@ export default function Login() {
   return (
     <form onSubmit={loginSubmit}>
       <fieldset>
-        <Grid container alignItems="center" justify="center" direction="column">
+        <Grid container alignItems="center" justify="center" direction="column" spacing={2}>
             <Grid item>
                 <TextField id="email" name="email" label="Email" type="text" onChange={e => setEmail(e.target.value)}/>
             </Grid>
             <Grid item>
-                <TextField id="password" name="password" label="Password" type="text" onChange={e => setPassword(e.target.value)} />
+                <TextField id="password" name="password" label="Password" type="password" onChange={e => setPassword(e.target.value)} />
             </Grid>
             <Button variant="text" color="primary" type="submit">
                 Login
