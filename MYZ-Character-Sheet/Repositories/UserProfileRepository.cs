@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using MYZ_Character_Sheet.Models;
 using MYZ_Character_Sheet.Utils;

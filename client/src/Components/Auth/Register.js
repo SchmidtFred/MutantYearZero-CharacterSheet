@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Grid, TextField, Button } from '@mui/material';
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { register } from "../../Modules/authManager";
 
 export default function Register() {
@@ -25,7 +25,7 @@ export default function Register() {
   return (
     <form onSubmit={registerClick}>
         <fieldset>
-        <Grid container alignItems="center" justify="center" direction="column">
+        <Grid container alignItems="center" justify="center" direction="column" spacing={2}>
             <Grid item>
                 <TextField required={true} id="name" name="name" label="Display Name" type="text" onChange={e => setDisplayName(e.target.value)} />
             </Grid>
@@ -42,6 +42,9 @@ export default function Register() {
                 Register
             </Button>
         </Grid>
+        <em>
+          Wrong Place? <Link to="login">Login</Link>
+        </em>
       </fieldset>
     </form>
   );
