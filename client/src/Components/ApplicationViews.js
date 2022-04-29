@@ -3,13 +3,14 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Auth/Login";
 import Register from "./Auth/Register";
 import Hello from "./Hello";
+import CharacterList from "./Character/CharacterList";
 
 export default function ApplicationViews({ isLoggedIn }) {
     return (
       <main>
         <Switch>
           <Route path="/" exact>
-            {isLoggedIn ? <Hello /> : <Redirect to="/login" />}
+            {isLoggedIn ? <CharacterList /> : <Redirect to="/login" />}
           </Route>
 
           <Route path="/login">
