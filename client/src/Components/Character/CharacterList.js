@@ -8,14 +8,12 @@ export default function CharacterList() {
     const [characters, setCharacters] = useState([]);
 
     const getCharacters = () => {
-        getAllCharactersFromCurrentUser().then(char => setCharacters(char));
+        getAllCharactersFromCurrentUser().then(setCharacters);
     }
 
     useEffect(() => {
         getCharacters();
     }, []);
-
-    console.log(characters)
 
     return (
         <>
@@ -32,7 +30,7 @@ export default function CharacterList() {
                 Make Your First Character
             </Typography>
             <Typography align="center">
-            <Button component={Link} to="/characters/create" variant="contained" textAlign="center">
+            <Button component={Link} to="/characters/create" variant="contained" textalign="center">
                 Create Character    
             </Button></Typography> </>
         }

@@ -16,7 +16,7 @@ export default function CharacterCard({ character }) {
                 </CardContent>
                 <Box sx={{ display: 'flex', alignContent: 'flex-end', alignItems: 'center', p: 1 }}>
                     {/*TODO implement linking to character sheet, current to props are for testing only*/}
-                    <Button sx={{ m: 0.5 }} component={Link} to={`/hello/${character.id}`} variant="contained" color="primary">View</Button>
+                    <Button sx={{ m: 0.5 }} component={Link} to={`/character/${character.id}`} variant="contained" color="primary">View</Button>
                     <Button sx={{ m: 0.5 }} component={Link} to={`/hello/${character.id}`} variant="contained" color="primary">Edit</Button>
                     <Button sx={{ m: 0.5 }} component={Link} to={`/hello/${character.id}`} variant="contained" color="primary">Delete</Button>
                 </Box>
