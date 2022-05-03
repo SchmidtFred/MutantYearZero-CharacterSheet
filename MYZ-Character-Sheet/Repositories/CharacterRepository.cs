@@ -170,7 +170,7 @@ namespace MYZ_Character_Sheet.Repositories
                 Dehydrated = DbUtils.GetBool(reader, "Dehydrated"),
                 Sleepless = DbUtils.GetBool(reader, "Sleepless"),
                 Hypothermic = DbUtils.GetBool(reader, "Hypothermic"),
-                CriticalInjuries = DbUtils.GetNullableString(reader, "CriticalInjuries"),
+                CriticalInjuries = DbUtils.GetNullableString(reader, "CriticalInjuries"),   
                 RotPoints = DbUtils.GetInt(reader, "RotPoints"),
                 MutationPoints = DbUtils.GetInt(reader, "MutationPoints"),
                 Armor = DbUtils.GetNullableString(reader, "Armor"),

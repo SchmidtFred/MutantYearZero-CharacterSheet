@@ -4,9 +4,9 @@ import CharacterSkill from './CharacterSkill';
 
 export default function CharacterSkillsList({ skills }) {
     return (
-        <Box maxWidth="50%">
+        <Box mt={2}>
             <Typography variant="h5" textAlign="center">Skills</Typography>
-            <Stack spacing={1} divider={<Divider variant="middle" flexItem />}>
+            <Stack m={1} divider={<Divider variant="middle" flexItem />}>
                 {skills?.map(skill => <CharacterSkill key={skill.id} skill={skill} />)}
             </Stack>
         </Box>

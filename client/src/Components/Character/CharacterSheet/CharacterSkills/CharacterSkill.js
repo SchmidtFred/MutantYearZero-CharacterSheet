@@ -12,7 +12,7 @@ export default function CharacterSkill({ skill }) {
 		}
 	};
 
-	const handleClickClose = (event) => {
+	const handleClickClose = () => {
 		setOpen(false);
 		setAnchorEl(null);
 	};
@@ -24,15 +24,17 @@ export default function CharacterSkill({ skill }) {
 			wrap="nowrap"
 			spacing={2}
 			onClick={handleClickOpen}
+			mt={"5px"}
 			sx={[
 				{ "&:hover": { cursor: "pointer" } }
 			]}
+			alignItems="center"
 		>
 			<Grid item flex={2}>
-				<Typography variant="h6">{skill.name}</Typography>
+				<Typography variant="h6" mb={1}>{skill.name}</Typography>
 			</Grid>
 			<Grid item flex={1}>
-				<Box sx={{ border: "1px solid black" }}>{skill.value}</Box>
+				<Box sx={{ border: "1px solid black", width: "2rem", height: "2rem", display: "flex", justifyContent: "center", alignItems: "center" }}  mb={1} p={1}>{skill.value}</Box>
 			</Grid>
 			<Popover
 				anchorEl={anchorEl}
@@ -41,7 +43,7 @@ export default function CharacterSkill({ skill }) {
 				open={open}
 				onClose={handleClickClose}
 			>
-				<Box>
+				<Box width={500}>
 					<Typography
 						id="modal-modal-title"
 						variant="h6"

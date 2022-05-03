@@ -8,10 +8,10 @@ import {
 	FormGroup,
 	FormControlLabel, 
 	Box,
-	CardContent,
+	CardContent, 
 	Card
 } from "@mui/material";
-import StringAlterationDialog from "../StringAlterationDialog";
+import  StringEdit from "../StringEdit";
 
 export default function CharacterCondition({ propArray }) {
 	const [
@@ -30,14 +30,12 @@ export default function CharacterCondition({ propArray }) {
 			dehydrated: false,
 			sleepless: false,
 			hypothermic: false
-		},
-		null,
-		0,
-		null,
-		"",
-		null
+		}, null, 0, null, "", null
 	]);
 	const [open, setOpen] = useState(false);
+
+
+
 
 	useEffect(() => {
 		setStateArray(propArray);
@@ -59,24 +57,12 @@ export default function CharacterCondition({ propArray }) {
 		}
 	};
 
-	const handleClickOpen = () => {
-		if (!open) {
-			setOpen(true);
-		}
-	};
-
-	const handleClickClose = (save, newCriticalInjuries) => {
-		if (save) {
-			setCritInjuries(newCriticalInjuries);
-		}
-		setOpen(false);
-	};
-
+	
 	return (
 		<Grid container direction="row" wrap="nowrap" alignItems="center">
 			<Grid item container direction="row" flex={1}>
 				<FormGroup>
-					<FormControlLabel
+				<FormControlLabel
 						control={
 							<Checkbox
 								checked={conditionBools.starving}
@@ -138,7 +124,7 @@ export default function CharacterCondition({ propArray }) {
 					</ButtonGroup>
 				</Box>
 			</Grid>
-			<Grid onClick={handleClickOpen} sx={[
+			<Grid onClick={() => StringEdit.handlers.handleOpen(open, setOpen)} sx={[
 				{ "&:hover": { cursor: "pointer" } }
 			]} flex={1} item>
 				<Card variant="outlined">
@@ -148,11 +134,13 @@ export default function CharacterCondition({ propArray }) {
 					</CardContent>
 				</Card>
 			</Grid>
-			<StringAlterationDialog
+			<StringEdit.render.StringDialog
 				title="Critical Injuries"
 				_string={criticalInjuries}
 				open={open}
-				onClose={handleClickClose}
+				onClose={StringEdit.handlers.handleClose}
+				openSetter={setOpen}
+				stringSetter={setCritInjuries}
 			/>
 		</Grid>
 	);
