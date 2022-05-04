@@ -112,8 +112,8 @@ namespace MYZ_Character_Sheet.Repositories
         }
 
         private string _queryString = @"
-                       SELECT c.Id AS CharacterId, c.UserProfileId, c.[Public], c.RoleId, c.[Name] AS CharacterName, c.FaceAppearance, c.BodyAppearance, c.ClothingAppearance,
-                              c.Strength, c.Agility, c.Wits, c.Empathy, c.Damage, c.Fatigue, c.Confusion, c.Doubt, c.Starving, c.Dehydrated,
+                       SELECT c.Id AS CharacterId, c.UserProfileId, c.[Public], c.RoleId, c.[Name] AS CharacterName, c.ExperiencePoints, c.FaceAppearance, c.BodyAppearance,
+                              c.ClothingAppearance, c.Strength, c.Agility, c.Wits, c.Empathy, c.Damage, c.Fatigue, c.Confusion, c.Doubt, c.Starving, c.Dehydrated,
                               c.Sleepless, c.Hypothermic, c.CriticalInjuries, c.RotPoints, c.MutationPoints, c.Armor, c.Gear, c.TinyItems, c.Weapons,
                               c.PcRelationship1, c.PcRelationship2, c.PcRelationship3, c.PcRelationship4, c.PcRelationship1Buddy,
                               c.PcRelationship2Buddy, c.PcRelationship3Buddy, c.PcRelationship4Buddy, c.Hate, c.Protect, c.Dream, c.DenDescription, c.DenStash,
@@ -154,6 +154,7 @@ namespace MYZ_Character_Sheet.Repositories
                     Name = DbUtils.GetNullableString(reader, "RoleName"),
                 },
                 Name = DbUtils.GetString(reader, "CharacterName"),
+                ExperiencePoints = DbUtils.GetInt(reader, "ExperiencePoints"),
                 FaceAppearance = DbUtils.GetNullableString(reader, "FaceAppearance"),
                 BodyAppearance = DbUtils.GetNullableString(reader, "BodyAppearance"),
                 ClothingAppearance = DbUtils.GetNullableString(reader, "ClothingAppearance"),
@@ -169,7 +170,7 @@ namespace MYZ_Character_Sheet.Repositories
                 Dehydrated = DbUtils.GetBool(reader, "Dehydrated"),
                 Sleepless = DbUtils.GetBool(reader, "Sleepless"),
                 Hypothermic = DbUtils.GetBool(reader, "Hypothermic"),
-                CriticalInjuries = DbUtils.GetNullableString(reader, "CriticalInjuries"),
+                CriticalInjuries = DbUtils.GetNullableString(reader, "CriticalInjuries"),   
                 RotPoints = DbUtils.GetInt(reader, "RotPoints"),
                 MutationPoints = DbUtils.GetInt(reader, "MutationPoints"),
                 Armor = DbUtils.GetNullableString(reader, "Armor"),

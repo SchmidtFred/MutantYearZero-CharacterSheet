@@ -32,6 +32,7 @@ CREATE TABLE [Character] (
   [Public] bit DEFAULT (0),
   [RoleId] int NOT NULL DEFAULT (0),
   [Name] varchar(55) NOT NULL,
+  [ExperiencePoints] int NOT NULL DEFAULT (0),
   [FaceAppearance] nvarchar(255),
   [BodyAppearance] nvarchar(255),
   [ClothingAppearance] nvarchar(255),

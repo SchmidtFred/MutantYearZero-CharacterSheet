@@ -17,7 +17,7 @@ export default function NavBar({ isLoggedIn }) {
                     {isLoggedIn ?
                     <>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                            <Link component="button" color="inherit" to="/">
+                            <Link component="button" color="inherit" href="/">
                                 Home
                             </Link>
                         </Typography>

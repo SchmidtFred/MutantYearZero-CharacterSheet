@@ -2,8 +2,8 @@ import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "./Auth/Login";
 import Register from "./Auth/Register";
-import Hello from "./Hello";
 import CharacterList from "./Character/CharacterList";
+import CharacterSheet from "./Character/CharacterSheet/CharacterSheet";
 
 export default function ApplicationViews({ isLoggedIn }) {
     return (
@@ -11,6 +11,10 @@ export default function ApplicationViews({ isLoggedIn }) {
         <Switch>
           <Route path="/" exact>
             {isLoggedIn ? <CharacterList /> : <Redirect to="/login" />}
+          </Route>
+
+          <Route path="/character/:id(\d)">
+            {isLoggedIn ? <CharacterSheet /> : <Redirect to="/login" />}
           </Route>
 
           <Route path="/login">

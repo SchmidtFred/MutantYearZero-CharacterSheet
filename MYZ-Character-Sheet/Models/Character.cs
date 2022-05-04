@@ -15,6 +15,7 @@ namespace MYZ_Character_Sheet.Models
         public Role Role { get; set; }
         [Required]
         public string Name { get; set; }
+        public int ExperiencePoints { get; set; }
         public string FaceAppearance { get; set; }
         public string BodyAppearance { get; set; }
         public string ClothingAppearance { get; set; }
