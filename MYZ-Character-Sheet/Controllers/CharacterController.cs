@@ -45,9 +45,30 @@ namespace MYZ_Character_Sheet.Controllers
             }
             if (character.UserProfileId != profile.Id)
             {
-                return BadRequest();
+                return Unauthorized();
             }
             return Ok(character);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, Character character)
+        {
+            if (id != character.Id)
+            {
+                return BadRequest();
+            }
+            var profile = GetCurrentUserProfile();
+            if (profile == null)
+            {
+                return NotFound();
+            }
+            if (character.UserProfileId != profile.Id)
+            {
+                return Unauthorized();
+            }
+
+            _characterRepository.Update(character);
+            return NoContent();
         }
         
         private UserProfile GetCurrentUserProfile()

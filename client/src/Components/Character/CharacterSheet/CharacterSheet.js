@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getCharacterById } from "../../../Modules/characterManager";
+import { getCharacterById, saveCharacterChanges } from "../../../Modules/characterManager";
 import { useParams } from "react-router-dom";
 import CharacterHeader from "./CharacterHeader";
 import CharacterAttributes from "./CharacterAttributes/CharacterAttributes";
@@ -127,6 +127,7 @@ export default function CharacterSheet() {
 	const getCharacter = () => {
 		getCharacterById(id).then((character) => {
 			setCharacter(character);
+			setXp(character.experiencePoints);
 			setMp(character.mutationPoints);
 			setStrength(character.strength);
 			setAgility(character.agility);
@@ -230,6 +231,59 @@ export default function CharacterSheet() {
 		getCharacter();
 	}, [id]);
 
+	//Function for saving the character changes to the database
+	const updateCharacter = () => {
+		//make a shallow copy of our character
+		const copy = {...character};
+		//function to handle character property changes
+		const changeProp = (charProp, currentState) => {
+			if (copy[charProp] !== currentState) {
+				copy[charProp] = currentState
+			}
+		};
+
+		//update all of the properties as needed
+		changeProp("experiencePoints", xp);
+		changeProp("mutationPoints", mutationPoints);
+		changeProp("strength", strength);
+		changeProp("agility", agility);
+		changeProp("wits", wits);
+		changeProp("empathy", empathy);
+		changeProp("damage", damage);
+		changeProp("fatigue", fatigue);
+		changeProp("confusion", confusion);
+		changeProp("doubt", doubt);
+		changeProp("starving", conditionBools.starving);
+		changeProp("dehydrated", conditionBools.dehydrated);
+		changeProp("sleepless", conditionBools.sleepless);
+		changeProp("hypothermic", conditionBools.hypothermic);
+		changeProp("rotPoints", rotPoints);
+		changeProp("criticalInjuries", criticalInjuries);
+		changeProp("weapons", weapons);
+		changeProp("armor", armor);
+		changeProp("gear", gear);
+		changeProp("tinyItems", tinyItems);
+		changeProp("denDescription", denDescription);
+		changeProp("denStash", denStash);
+		changeProp("clothingAppearance", clothingAppearance);
+		changeProp("bodyAppearance", bodyAppearance);
+		changeProp("clothingAppearance", clothingAppearance);
+		changeProp("pcRelationship1", pcRel1);
+		changeProp("pcRelationship2", pcRel2);
+		changeProp("pcRelationship3", pcRel3);
+		changeProp("pcRelationship4", pcRel4);
+		changeProp("pcRelationship1Buddy", buddyBools.buddy1);
+		changeProp("pcRelationship2Buddy", buddyBools.buddy2);
+		changeProp("pcRelationship3Buddy", buddyBools.buddy3);
+		changeProp("pcRelationship4Buddy", buddyBools.buddy4);
+		changeProp("hate", hate);
+		changeProp("protect", protect);
+		changeProp("dream", dream);
+
+		//now send the updated character to the database
+		saveCharacterChanges(character.id, copy).then(() => getCharacter);
+	}
+
 	//UseEffect for setting attributes array
 	//(arrays like these have their useEffects separate so they properly reference and reflect changes to the state in parent component)
 	useEffect(() => {
@@ -298,6 +352,7 @@ export default function CharacterSheet() {
 		clothingAppearance
 	]);
 
+	//UseEffect for settting Personal array
 	useEffect(() => {
 		setPersonalArray([
 			{
@@ -323,6 +378,8 @@ export default function CharacterSheet() {
 		]);
 	}, [protect, hate, dream, pcRel1, pcRel2, pcRel3, pcRel4, buddyBools]);
 
+	
+
 	return (
 		<>
 			<CharacterHeader
@@ -330,6 +387,7 @@ export default function CharacterSheet() {
 				role={character.role?.name}
 				xp={xp}
 				setXp={setXp}
+				updateCharacter={updateCharacter}
 			/>
 			<CharacterAttributes attributeArray={attributeArray} />
 			<CharacterCondition propArray={conditionsArray} />

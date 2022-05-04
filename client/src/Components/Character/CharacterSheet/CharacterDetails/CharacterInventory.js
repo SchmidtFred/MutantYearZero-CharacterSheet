@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Grid, Card, CardContent, Typography } from "@mui/material";
-import StringEdit from "../../StringEdit";
+import React from "react";
+import { Grid } from "@mui/material";
 import DetailsPanelCard from "./DetailsPanelCard";
 
 export default function CharacterInventory({ inventoryDetails }) {
