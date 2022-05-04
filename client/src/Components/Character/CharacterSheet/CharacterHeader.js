@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Box, ButtonGroup, Typography, Button} from "@mui/material";
 
-export default function CharacterHeader({role, name, xp, setXp }) {
+export default function CharacterHeader({role, name, xp, setXp, updateCharacter }) {
 
     const incrementXp = (event) => {
         if (event.currentTarget.id == "xpUptick") {
@@ -29,6 +29,9 @@ export default function CharacterHeader({role, name, xp, setXp }) {
                     <Button id="xpDowntick" onClick={incrementXp}>⌄</Button>
                 </ButtonGroup>
             </Box>
-        </Grid>        
+        </Grid>    
+        <Grid item>
+            <Button onClick={updateCharacter}>Save Changes</Button>
+        </Grid>    
     </Grid>
 }

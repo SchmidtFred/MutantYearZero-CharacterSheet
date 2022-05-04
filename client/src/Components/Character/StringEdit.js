@@ -23,7 +23,7 @@ export default {
                         </Grid>
                         <Grid item>
                             <ButtonGroup size="large" orientation="horizontal" variant="contained">
-                                <Button onClick={() => handleClose(true)}>Save Changes</Button>
+                                <Button onClick={() => handleClose(true)}>Submit</Button>
                                 <Button onClick={() => handleClose(false)}>Cancel</Button>
                             </ButtonGroup>
                         </Grid>

@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import AttributeDialog from "./AttributeDialog";
 
 export default function Attribute({ propArray }) {
-    const [[attTitle, base, setBase, trTitle, trauma, setTrauma],setStateArray] = useState(["", 0, null, "", 0, null]);
+    const [attTitle, base, setBase, trTitle, trauma, setTrauma] = propArray;
 	const [open, setOpen] = useState(false);
 
-    useEffect(() => {
-        setStateArray(propArray);
-    }, [propArray])
 
 	const handleClickOpen = () => {
 		if (!open) {

@@ -7,5 +7,6 @@ namespace MYZ_Character_Sheet.Repositories
     {
         List<Character> GetAllByUser(int id);
         Character GetById(int id);
+        void Update(Character character);
     }
 }

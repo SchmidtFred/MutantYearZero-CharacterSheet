@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { NavLink as RRNavLink } from "react-router-dom";
 import { AppBar, Box, Toolbar, Link, Button, IconButton, Typography } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom'
 import { logout } from "../Modules/authManager";
 
 export default function NavBar({ isLoggedIn }) {
@@ -17,7 +18,7 @@ export default function NavBar({ isLoggedIn }) {
                     {isLoggedIn ?
                     <>
                         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                            <Link component="button" color="inherit" href="/">
+                            <Link component={RouterLink} color="inherit" to="/">
                                 Home
                             </Link>
                         </Typography>
