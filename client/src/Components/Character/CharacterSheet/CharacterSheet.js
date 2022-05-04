@@ -238,7 +238,17 @@ export default function CharacterSheet() {
 		//function to handle character property changes
 		const changeProp = (charProp, currentState) => {
 			if (copy[charProp] !== currentState) {
-				copy[charProp] = currentState
+				if (typeof(currentState) === "string")
+				{
+					//handle nulls and whitespaces to make sure they are set as mull
+					if (currentState === null || !currentState.trim()) {
+						copy[charProp] = null;
+					} else {
+						copy[charProp] = currentState;
+					}
+				} else {
+					copy[charProp] = currentState;
+				}
 			}
 		};
 
