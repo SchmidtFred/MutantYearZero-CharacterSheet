@@ -111,6 +111,60 @@ namespace MYZ_Character_Sheet.Repositories
             }
         }
 
+        public TalMutByRole GetTalentMutationByRole(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT t.Id AS TalentId, t.RoleId, t.Name AS TalentName, t.Description AS TalentDescription, s.Id AS SkillId, s.Name AS SkillName, s.Description AS SkillDescription, s.PageReference
+                        FROM Talent t
+                             LEFT JOIN Skill s ON s.RoleId = t.RoleId
+                       WHERE t.RoleId = @id";
+
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    TalMutByRole model = new TalMutByRole()
+                    {
+                        StartingTalents = new List<Talent>(),
+                        SpecialistSkill = null
+                    };
+
+
+                    var reader = cmd.ExecuteReader();
+
+                    while(reader.Read())
+                    {
+                        if (model.SpecialistSkill == null)
+                        {
+                            model.SpecialistSkill = new Skill()
+                            {
+                                Id = DbUtils.GetInt(reader, "SkillId"),
+                                RoleId = DbUtils.GetNullableInt(reader, "RoleId"),
+                                Name = DbUtils.GetString(reader, "SkillName"),
+                                Description = DbUtils.GetString(reader, "SkillDescription"),
+                                PageReference = DbUtils.GetInt(reader, "PageReference")
+                            };
+                        }
+
+                        model.StartingTalents.Add(new Talent()
+                        {
+                            Id = DbUtils.GetInt(reader, "TalentId"),
+                            RoleId = DbUtils.GetNullableInt(reader, "RoleId"),
+                            Name = DbUtils.GetString(reader, "TalentName"),
+                            Description = DbUtils.GetString(reader, "TalentDescription"),
+                        });
+                    }
+
+                    reader.Close();
+
+                    return model;
+                }
+            }
+        }
+
         public void Update(Character character)
         {
             using (var conn = Connection)
