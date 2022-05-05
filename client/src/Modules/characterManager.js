@@ -41,7 +41,7 @@ export const getCharacterById = (id) => {
 
 export const saveCharacterChanges = (id, character) => {
     return getToken().then(token => {
-        fetch(`${baseUrl}/${id}`, {
+        return fetch(`${baseUrl}/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -62,7 +62,7 @@ export const saveCharacterChanges = (id, character) => {
 
 export const getSpecialtiesByRole = (id) => {
     return getToken().then(token => {
-        fetch(`${baseUrl}/RoleSpecialties/${id}`, {
+        return fetch(`${baseUrl}/RoleSpecialties/${id}`, {
             method: "GET",
             headers: {
                 Authorization: `Bearer ${token}`

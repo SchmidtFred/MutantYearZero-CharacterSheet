@@ -16,7 +16,10 @@ export default function SetDetails({ detailsArray }) {
 	] = detailsArray;
 
 	return (
-		<Grid container direction="column" alignContent="space" alignItems="center" p={10} spacing={2} >
+		<Grid container direction="column"  alignItems="center" p={10} spacing={2} >
+            <Grid item mb={2}>
+                <Typography textAlign="center" variant="h4">Character Details</Typography>
+            </Grid>
             <Grid item container justifyContent="space-between" alignItems="center" mb={2}>
                 <Grid item>
                     <Box  />
@@ -29,7 +32,7 @@ export default function SetDetails({ detailsArray }) {
 
             <Divider variant="middle" flexItem />
 
-			<Grid item container justifyContent="space-between" alignItems="center" noWrap mb={2}>
+			<Grid item container justifyContent="space-between" alignItems="center" wrap='nowrap' mb={2}>
                 <TextField
                     defaultValue={name}
                     onBlur={(e) => setName(e.target.value)}
@@ -42,7 +45,7 @@ export default function SetDetails({ detailsArray }) {
 
             <Divider variant="middle" flexItem />
 
-			<Grid item container justifyContent="space-between" alignItems="center" noWrap mb={2}>
+			<Grid item container justifyContent="space-between" alignItems="center" wrap='nowrap' mb={2}>
                 <TextField
                     sx={{width: "25%"}}
                     defaultValue={faceAppearance}
@@ -56,7 +59,7 @@ export default function SetDetails({ detailsArray }) {
 
             <Divider variant="middle" flexItem />
 
-            <Grid item container justifyContent="space-between" alignItems="center" noWrap mb={2}>
+            <Grid item container justifyContent="space-between" alignItems="center" wrap='nowrap' mb={2}>
                 <TextField
                     defaultValue={bodyAppearance}
                     onBlur={(e) => setBody(e.target.value)}
@@ -70,7 +73,7 @@ export default function SetDetails({ detailsArray }) {
 
             <Divider variant="middle" flexItem />
 
-            <Grid item container justifyContent="space-between" alignItems="center" noWrap mb={2}>
+            <Grid item container justifyContent="space-between" alignItems="center" wrap='nowrap' mb={2}>
                 <TextField
                     defaultValue={clothingAppearance}
                     onBlur={(e) => setClothing(e.target.value)}
