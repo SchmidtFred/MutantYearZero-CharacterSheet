@@ -35,6 +35,7 @@ export default function SetDetails({ detailsArray }) {
                     onBlur={(e) => setName(e.target.value)}
                     label="Character Name"
                     sx={{width: "25%"}}
+                    required
                 />
                 <Typography  variant="body1">{role.typicalNames}</Typography>
 			</Grid>
