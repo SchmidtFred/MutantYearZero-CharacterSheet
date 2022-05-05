@@ -50,6 +50,12 @@ namespace MYZ_Character_Sheet.Controllers
             return Ok(character);
         }
 
+        [HttpGet("RoleSpecialties/{id}")]
+        public IActionResult GetSpecialtiesByRoleId(int id)
+        {
+            return Ok(_characterRepository.GetTalentMutationByRole(id));
+        }
+
         [HttpPut("{id}")]
         public IActionResult Put(int id, Character character)
         {
