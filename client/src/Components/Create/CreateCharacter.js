@@ -4,8 +4,10 @@ import ChooseRole from './FormComponents/ChooseRole';
 import { getAllRoles } from '../../Modules/roleManager';
 import { getSpecialtiesByRole } from '../../Modules/characterManager';
 import SetDetails from './FormComponents/SetDetails';
+import SetInventory from './FormComponents/SetInventory';
+import SetDen from './FormComponents/SetDen';
 
-const steps = ["Role", "Character Details", "Stats", "Talent and Mutation", "Relationships", "Gear", "Den"];
+const steps = ["Role", "Character Details", "Stats", "Talent and Mutation", "Relationships and Dream", "Inventory", "Den"];
 
 export default function CreateCharacter() {
     const [activeStep, setActiveStep] = useState(0);
@@ -30,6 +32,20 @@ export default function CreateCharacter() {
     //role, name, faceApp, bodyApp, clothApp, setName, setFace, setBody, setClothing
     const [detailsArray, setDetailsArray] = useState([{}, "", "", "", "", null, null, null, null]);
     //#endregion
+    //#region Inventory Details
+    const [weapons, setWeapons] = useState("");
+    const [armor, setArmor] = useState("");
+    const [gear, setGear] = useState("");
+    const [tinyItems, setTinyItems] = useState("");
+    //weapons, armor, gear, tinyItems, setWep, setArm, setGear, setTin
+    const [inventoryArray, setInventoryArray] = useState(["", "", "", "", null, null, null, null]);
+    //#endregion
+    //#region Den Details
+    const [denDescription, setDenDescription] = useState("");
+    const [denStash, setDenStash] = useState("");
+    //denDesc, denStash, setDenDesc, setDenStash
+    const [denArray, setDenArray] = useState(["", "", null, null]);
+    //#endregion
     //#endregion
 
     //initialization
@@ -42,15 +58,24 @@ export default function CreateCharacter() {
         setDetailsArray([role, name, faceAppearance, bodyAppearance, clothingAppearance, setName, setFace, setBody, setClothing]);
     }, [role, name, faceAppearance, bodyAppearance, clothingAppearance]);
 
+    //inventory array
+    useEffect(() => {
+        setInventoryArray([weapons, armor, gear, tinyItems, setWeapons, setArmor, setGear, setTinyItems]);
+    }, [weapons, armor, gear, tinyItems]);
+
+    //den array
+    useEffect(() => {
+        setDenArray([denDescription, denStash, setDenDescription, setDenStash]);
+    }, [denDescription, denStash]);
+
     //To select a role and grab relevant data
     const selectRole = (role) => {
         setRole(role);
         setIsRoleSelected(true);
         getSpecialtiesByRole(role.id).then((res) => {
-            console.log(res)
             setStartingTalents(res.startingTalents);
             setSpecialistSkill(res.specialistSkill);
-        })
+        });
     };
 
     //#region Stepper Logic
@@ -113,9 +138,13 @@ export default function CreateCharacter() {
     const FormComponent = () => {
         switch(activeStep) {
             case 0:
-                return <ChooseRole roles={roles} selectRole={selectRole} />
+                return <ChooseRole roles={roles} selectedRole={role} selectRole={selectRole} />
             case 1:
                 return <SetDetails detailsArray={detailsArray} />
+            case 5:
+                return <SetInventory inventoryArray={inventoryArray} />
+            case 6:
+                return <SetDen denArray={denArray} />
             default:
                 return <Typography sx={{ mt: 2, mb: 1 }}>This is where we will render our form component in a Box component</Typography>
         }
