@@ -1,6 +1,6 @@
 import React from 'react';
 import { Divider, Grid, TextField, Typography } from "@mui/material";
-import { Box } from "@mui/system";
+
 
 export default function SetDen({ denArray }) {
     const [
