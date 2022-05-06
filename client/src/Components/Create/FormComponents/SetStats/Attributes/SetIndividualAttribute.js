@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Typography, Button, ButtonGroup } from "@mui/material";
 
-export default function SetIndividualAttribute({ attTitle, attribute, setAttribute, setPoints, points, keyAttribute}) {
+export default function SetIndividualAttribute({ attTitle, attribute, setAttribute, setPoints, points, keyAttribute, chosenReducedAttribute}) {
     
     return (
         <Box 
@@ -35,7 +35,7 @@ export default function SetIndividualAttribute({ attTitle, attribute, setAttribu
                                 {
                                     setAttribute(attribute + 1);
                                     setPoints(points - 1);
-                                } else if (attribute + 1 === 5 & keyAttribute === attTitle) {
+                                } else if (attribute + 1 === 5 && keyAttribute === attTitle && chosenReducedAttribute !== attTitle) {
                                     setAttribute(attribute + 1);
                                     setPoints(points - 1);
                                 }
@@ -50,6 +50,11 @@ export default function SetIndividualAttribute({ attTitle, attribute, setAttribu
                                 if (attribute - 1 > 1) {
                                     setAttribute(attribute - 1);
                                     setPoints(points + 1);
+                                } else if (attTitle === chosenReducedAttribute) {
+                                    if (attribute - 1 > 0) {
+                                        setAttribute(attribute - 1);
+                                        setPoints(points + 1);
+                                    }
                                 }
                             }
                         }}

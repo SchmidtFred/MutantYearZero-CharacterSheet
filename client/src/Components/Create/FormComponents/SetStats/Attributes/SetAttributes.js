@@ -8,6 +8,7 @@ export default function SetAttributes({ attributeArray }) {
         keyAttribute,
         points,
         setPoints,
+        chosenReducedAttribute,
 		strength,
 		agility,
 		wits,
@@ -38,6 +39,7 @@ export default function SetAttributes({ attributeArray }) {
                         points={points}
                         setPoints={setPoints}
                         keyAttribute={keyAttribute}
+                        chosenReducedAttribute={chosenReducedAttribute}
                     />
                 </Grid>
                 <Grid item container mb={2} rowSpacing={1} alignItems="center" sx={{ flex: 1 }} xs={12} md={6} lg={3} xl={3}>
@@ -48,6 +50,7 @@ export default function SetAttributes({ attributeArray }) {
                         points={points}
                         setPoints={setPoints}
                         keyAttribute={keyAttribute}
+                        chosenReducedAttribute={chosenReducedAttribute}
                     />
                 </Grid>
                 <Grid item container mb={2} rowSpacing={1} alignItems="center" sx={{ flex: 1 }} xs={12} md={6} lg={3} xl={3}>
@@ -58,6 +61,7 @@ export default function SetAttributes({ attributeArray }) {
                         points={points}
                         setPoints={setPoints}
                         keyAttribute={keyAttribute}
+                        chosenReducedAttribute={chosenReducedAttribute}
                     />
                 </Grid>
                 <Grid item container mb={2} rowSpacing={1} alignItems="center" sx={{ flex: 1 }} xs={12} md={6} lg={3} xl={3}>
@@ -68,6 +72,7 @@ export default function SetAttributes({ attributeArray }) {
                         points={points}
                         setPoints={setPoints}
                         keyAttribute={keyAttribute}
+                        chosenReducedAttribute={chosenReducedAttribute}
                     />
                 </Grid>
             </Grid>
