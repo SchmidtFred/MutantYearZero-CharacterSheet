@@ -78,3 +78,24 @@ export const getSpecialtiesByRole = (id) => {
         })
     })
 }
+
+export const createCharacter = (character) => {
+    return getToken().then(token => {
+        return fetch(`${baseUrl}`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`
+            },
+            body: JSON.stringify(character)
+        }).then(res => {
+            if (res.ok) {
+                return res.status;
+            } else if (res.status === 401) {
+                throw new Error("Unauthorized");
+            } else {
+                throw new Error("An uknown error occurred while trying to save your character.");
+            }
+        })
+    })
+}

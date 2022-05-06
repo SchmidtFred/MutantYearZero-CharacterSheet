@@ -261,6 +261,71 @@ namespace MYZ_Character_Sheet.Repositories
             }
         }
 
+        public void Add(Character character)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        INSERT INTO [Character] ([UserProfileId], [Public], [RoleId], [Name], [ExperiencePoints], [FaceAppearance], [BodyAppearance], [ClothingAppearance], 
+                                    [Strength], [Agility], [Wits], [Empathy], [Damage], [Fatigue], [Confusion], [Doubt], [Starving], [Dehydrated], [Sleepless], [Hypothermic], 
+                                    [CriticalInjuries], [RotPoints], [MutationPoints], [Armor], [Gear], [TinyItems], [Weapons], [PcRelationship1], [PcRelationship2], [PcRelationship3],
+                                    [PcRelationship4], [PcRelationship1Buddy], [PcRelationship2Buddy], [PcRelationship3Buddy], [PcRelationship4Buddy], [Hate], [Protect], [Dream],
+                                    [DenDescription], [DenStash])
+                             OUTPUT INSERTED.ID
+                             VALUES (@userProfileId, @public, @roleId, @name, @experiencePoints, @faceAppearance, @bodyAppearance, @clothingAppearance, @strength, @agility, @wits,
+                                    @empathy, @damage, @fatigue, @confusion, @doubt, @starving, @dehydrated, @sleepless, @hypothermic, @criticalInjuries, @rotPoints, @mutationPoints,
+                                    @armor, @gear, @tinyItems, @weapons, @pcRelationship1, @pcRelationship2, @pcRelationship3, @pcRelationship4, @pcRelationship1Buddy, @pcRelationship2Buddy,
+                                    @pcRelationship3Buddy, @pcRelationship4Buddy, @hate, @protect, @dream, @denDescription, @denStash)";
+
+                    DbUtils.AddParameter(cmd, "@userProfileId", character.UserProfileId);
+                    DbUtils.AddParameter(cmd, "@public", character.Public);
+                    DbUtils.AddParameter(cmd, "@roleId", character.RoleId);
+                    DbUtils.AddParameter(cmd, "@name", character.Name);
+                    DbUtils.AddParameter(cmd, "@experiencePoints", character.ExperiencePoints);
+                    DbUtils.AddParameter(cmd, "@faceAppearance", character.FaceAppearance);
+                    DbUtils.AddParameter(cmd, "@bodyAppearance", character.BodyAppearance);
+                    DbUtils.AddParameter(cmd, "@clothingAppearance", character.ClothingAppearance);
+                    DbUtils.AddParameter(cmd, "@strength", character.Strength);
+                    DbUtils.AddParameter(cmd, "@agility", character.Agility);
+                    DbUtils.AddParameter(cmd, "@wits", character.Wits);
+                    DbUtils.AddParameter(cmd, "@empathy", character.Empathy);
+                    DbUtils.AddParameter(cmd, "@damage", character.Damage);
+                    DbUtils.AddParameter(cmd, "@fatigue", character.Fatigue);
+                    DbUtils.AddParameter(cmd, "@confusion", character.Confusion);
+                    DbUtils.AddParameter(cmd, "@doubt", character.Doubt);
+                    DbUtils.AddParameter(cmd, "@starving", character.Starving);
+                    DbUtils.AddParameter(cmd, "@dehydrated", character.Dehydrated);
+                    DbUtils.AddParameter(cmd, "@sleepless", character.Sleepless);
+                    DbUtils.AddParameter(cmd, "@hypothermic", character.Hypothermic);
+                    DbUtils.AddParameter(cmd, "@criticalInjuries", character.CriticalInjuries);
+                    DbUtils.AddParameter(cmd, "@rotPoints", character.RotPoints);
+                    DbUtils.AddParameter(cmd, "@mutationPoints", character.MutationPoints);
+                    DbUtils.AddParameter(cmd, "@armor", character.Armor);
+                    DbUtils.AddParameter(cmd, "@gear", character.Gear);
+                    DbUtils.AddParameter(cmd, "@tinyItems", character.TinyItems);
+                    DbUtils.AddParameter(cmd, "@weapons", character.Weapons);
+                    DbUtils.AddParameter(cmd, "@pcRelationship1", character.PcRelationship1);
+                    DbUtils.AddParameter(cmd, "@pcRelationship2", character.PcRelationship2);
+                    DbUtils.AddParameter(cmd, "@pcRelationship3", character.PcRelationship3);
+                    DbUtils.AddParameter(cmd, "@pcRelationship4", character.PcRelationship4);
+                    DbUtils.AddParameter(cmd, "@pcRelationship1Buddy", character.PcRelationship1Buddy);
+                    DbUtils.AddParameter(cmd, "@pcRelationship2Buddy", character.PcRelationship2Buddy);
+                    DbUtils.AddParameter(cmd, "@pcRelationship3Buddy", character.PcRelationship3Buddy);
+                    DbUtils.AddParameter(cmd, "@pcRelationship4Buddy", character.PcRelationship4Buddy);
+                    DbUtils.AddParameter(cmd, "@hate", character.Hate);
+                    DbUtils.AddParameter(cmd, "@protect", character.Protect);
+                    DbUtils.AddParameter(cmd, "@dream", character.Dream);
+                    DbUtils.AddParameter(cmd, "@denDescription", character.DenDescription);
+                    DbUtils.AddParameter(cmd, "@denStash", character.DenStash);
+
+                    character.Id = (int)cmd.ExecuteScalar();
+                }
+            }
+        }
+
         private string _queryString = @"
                        SELECT c.Id AS CharacterId, c.UserProfileId, c.[Public], c.RoleId, c.[Name] AS CharacterName, c.ExperiencePoints, c.FaceAppearance, c.BodyAppearance,
                               c.ClothingAppearance, c.Strength, c.Agility, c.Wits, c.Empathy, c.Damage, c.Fatigue, c.Confusion, c.Doubt, c.Starving, c.Dehydrated,

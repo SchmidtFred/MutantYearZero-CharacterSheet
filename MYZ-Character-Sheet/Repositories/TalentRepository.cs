@@ -1,15 +1,15 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using System.Collections.Generic;
+using Microsoft.Data.SqlClient;
+using Microsoft.Extensions.Configuration;
 using MYZ_Character_Sheet.Models;
 using MYZ_Character_Sheet.Utils;
-using System.Collections.Generic;
 
 namespace MYZ_Character_Sheet.Repositories
 {
-    public class MutationRepository : BaseRepository, IMutationRepository
+    public class TalentRepository : BaseRepository, ITalentRepository
     {
-        public MutationRepository(IConfiguration configuration) : base(configuration) { }
-
-        public Mutation GetByRandom()
+        public TalentRepository(IConfiguration configuration) : base(configuration) { }
+        public Talent GetById(int id)
         {
             using (var conn = Connection)
             {
@@ -17,31 +17,35 @@ namespace MYZ_Character_Sheet.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                  SELECT TOP 1 Id, Name, Description
-                          FROM Mutation
-                      ORDER BY NEWID()";
+                        SELECT Id, RoleId, [Name], [Description]
+                          FROM Talent
+                         WHERE Id = @id";
 
-                    Mutation mutation = null;
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    Talent talent = null;
 
                     var reader = cmd.ExecuteReader();
 
                     if (reader.Read())
                     {
-                        mutation = new Mutation()
+                        talent = new Talent()
                         {
                             Id = DbUtils.GetInt(reader, "Id"),
+                            RoleId = DbUtils.GetNullableInt(reader, "RoleId"),
                             Name = DbUtils.GetString(reader, "Name"),
                             Description = DbUtils.GetString(reader, "Description"),
                         };
+
                     }
 
                     reader.Close();
-                    return mutation;
+                    return talent;
                 }
             }
         }
 
-        public void AddCharacterMutations(List<Mutation> mutations, int characterId)
+        public void AddCharacterTalents(List<Talent> talents, int characterId)
         {
             using (var conn = Connection)
             {
@@ -49,17 +53,17 @@ namespace MYZ_Character_Sheet.Repositories
                 using (var cmd = conn.CreateCommand())
                 {
                     cmd.CommandText = @"
-                        INSERT INTO [CharacterMutation] (MutationId, CharacterId)
-                             VALUES (@mutationId0, @characterId)";
+                        INSERT INTO [CharacterTalent] (TalentId, CharacterId)
+                             VALUES (@talentId0, @characterId)";
 
-                    for (int i = 1; i < mutations.Count; i++)
+                    for (int i = 1; i < talents.Count; i++)
                     {
-                        cmd.CommandText += $", (@mutationId{i}, @characterId)";
+                        cmd.CommandText += $", (@talentId{i}, @characterId)";
                     }
 
-                    for (int i = 0; i < mutations.Count; i++)
+                    for (int i = 0; i < talents.Count; i++)
                     {
-                        DbUtils.AddParameter(cmd, $"@mutationId{i}", mutations[i].Id);
+                        DbUtils.AddParameter(cmd, $"@talentId{i}", talents[i].Id);
                     }
 
                     DbUtils.AddParameter(cmd, "@characterId", characterId);

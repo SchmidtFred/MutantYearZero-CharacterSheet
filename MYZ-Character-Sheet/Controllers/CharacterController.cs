@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using MYZ_Character_Sheet.Models;
 using MYZ_Character_Sheet.Repositories;
+using MYZ_Character_Sheet.Utils;
+using System;
 using System.Security.Claims;
 
 namespace MYZ_Character_Sheet.Controllers
@@ -13,10 +15,16 @@ namespace MYZ_Character_Sheet.Controllers
     {
         private readonly ICharacterRepository _characterRepository;
         private readonly IUserProfileRepository _userProfileRepository;
-        public CharacterController(ICharacterRepository characterRepository, IUserProfileRepository userProfileRepository)
+        private readonly ISkillRepository _skillRepository;
+        private readonly IMutationRepository _mutationRepository;
+        private readonly ITalentRepository _talentRepository;
+        public CharacterController(ICharacterRepository characterRepository, IUserProfileRepository userProfileRepository, ISkillRepository skillRepository, IMutationRepository mutationRepository, ITalentRepository talentRepository)
         {
             _characterRepository = characterRepository;
             _userProfileRepository = userProfileRepository;
+            _skillRepository = skillRepository;
+            _mutationRepository = mutationRepository;
+            _talentRepository = talentRepository;
         }
 
         [HttpGet("MyCharacters")]
@@ -76,7 +84,36 @@ namespace MYZ_Character_Sheet.Controllers
             _characterRepository.Update(character);
             return NoContent();
         }
-        
+
+
+        [HttpPost]
+        public IActionResult Post(Character character)
+        {
+            //make sure it meets requirements
+            var utils = new CharacterUtils(_skillRepository, _talentRepository);
+            if (!utils.CharacterMeetsGameRequirements(character))
+            {
+                return BadRequest();
+            }
+            //give it necessary variables
+            var profile = GetCurrentUserProfile();
+            character.UserProfileId = profile.Id;
+
+            //post character to database
+            _characterRepository.Add(character);
+
+            //post skills to database
+            _skillRepository.AddCharacterSkills(character.Skills, character.Id);
+
+            //post mutations to database
+            _mutationRepository.AddCharacterMutations(character.Mutations, character.Id);
+
+            //post talents to database
+            _talentRepository.AddCharacterTalents(character.Talents, character.Id);
+
+            return CreatedAtAction("Get", new { id = character.Id }, character);
+        }
+
         private UserProfile GetCurrentUserProfile()
         {
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
