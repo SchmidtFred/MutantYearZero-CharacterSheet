@@ -16,6 +16,7 @@ import SetDen from "./FormComponents/SetDen";
 import { getAllBasicSkills } from "../../Modules/skillManager";
 import SetStats from "./FormComponents/SetStats/SetStats";
 import ChooseTalentsAndMutations from "./FormComponents/ChooseTalentsAndMutations";
+import SetRelationshipsAndDreams from "./FormComponents/SetRelationshipsAndDreams";
 
 const steps = [
 	"Role",
@@ -100,6 +101,26 @@ export default function CreateCharacter() {
 	const [skillArray, setSkillArray] = useState([[], {}, 0, null, null, null]);
 	//#endregion
 	//#endregion
+	//#region Personal
+	//#region Relationships
+	const [pcRel1, setPcRel1] = useState("");
+	const [pcRel2, setPcRel2] = useState("");
+	const [pcRel3, setPcRel3] = useState("");
+	const [pcRel4, setPcRel4] = useState("");
+	const [buddyBools, setBuddyBools] = useState({
+		buddy1: false,
+		buddy2: false,
+		buddy3: false,
+		buddy4: false
+	});
+	//#endregion
+	//#region Goals
+	const [hate, setHate] = useState("");
+	const [protect, setProtect] = useState("");
+	const [dream, setDream] = useState("");
+	//#endregion
+	const [personalArray, setPersonalArray] = useState([]);
+	//#endregion
 	//#region Inventory Details
 	const [weapons, setWeapons] = useState("");
 	const [armor, setArmor] = useState("");
@@ -164,6 +185,32 @@ export default function CreateCharacter() {
 			setClothing
 		]);
 	}, [role, name, faceAppearance, bodyAppearance, clothingAppearance]);
+
+	//personal array
+	useEffect(() => {
+		setPersonalArray([
+			{
+				pcRel1: pcRel1,
+				pcRel2: pcRel2,
+				pcRel3: pcRel3,
+				pcRel4: pcRel4,
+				buddyBools: buddyBools,
+				setPcRel1: setPcRel1,
+				setPcRel2: setPcRel2,
+				setPcRel3: setPcRel3,
+				setPcRel4: setPcRel4,
+				setBuddyBools: setBuddyBools
+			},
+			{
+				protect: protect,
+				hate: hate,
+				dream: dream,
+				setProtect: setProtect,
+				setHate: setHate,
+				setDream: setDream
+			}
+		]);
+	}, [protect, hate, dream, pcRel1, pcRel2, pcRel3, pcRel4, buddyBools]);
 
 	//inventory array
 	useEffect(() => {
@@ -327,7 +374,9 @@ export default function CreateCharacter() {
 			case 3: 
 				return (
 					<ChooseTalentsAndMutations setMutation={setMutation} mutation={mutation} setSecondMutation={setSecondMutation} secondMutation={secondMutation} startingTalents={startingTalents} chosenTalent={chosenTalent} setChosenTalent={setChosenTalent} attributeArray={attributeArray} setChosenReducedAttribute={setChosenReducedAttribute} />
-				)
+				);
+			case 4:
+				return <SetRelationshipsAndDreams personalArray={personalArray} />
 			case 5:
 				return <SetInventory inventoryArray={inventoryArray} />;
 			case 6:
