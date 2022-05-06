@@ -25,11 +25,8 @@ export default function CharacterSkill({ skill }) {
 			spacing={2}
 			onClick={handleClickOpen}
 			mt={"5px"}
-			sx={[
-				{ "&:hover": { cursor: "pointer" } }
-			]}
-			alignItems="center"
-		>
+			sx={[ { "&:hover": { cursor: "pointer" } } ]}
+			alignItems="center">
 			<Grid item flex={2}>
 				<Typography variant="h6" mb={1}>{skill.name}</Typography>
 			</Grid>
@@ -41,14 +38,12 @@ export default function CharacterSkill({ skill }) {
 				anchorOrigin={{ vertical: "top", horizontal: "right" }}
 				transformOrigin={{ vertical: "top", horizontal: "left" }}
 				open={open}
-				onClose={handleClickClose}
-			>
+				onClose={handleClickClose}>
 				<Box width={500}>
 					<Typography
 						id="modal-modal-title"
 						variant="h6"
-						component="h2"
-					>
+						component="h2">
 						{skill.name}
 					</Typography>
 					<Typography id="modal-modal-description" sx={{ mt: 2 }}>
@@ -56,8 +51,7 @@ export default function CharacterSkill({ skill }) {
 					</Typography>
 					<Typography
 						id="modal-modal-description"
-						variant="subtitle1"
-					>
+						variant="subtitle1">
 						For information on this skill. Go to page{" "}
 						{skill.pageReference}
 					</Typography>
