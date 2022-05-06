@@ -15,6 +15,7 @@ import SetInventory from "./FormComponents/SetInventory";
 import SetDen from "./FormComponents/SetDen";
 import { getAllBasicSkills } from "../../Modules/skillManager";
 import SetStats from "./FormComponents/SetStats/SetStats";
+import ChooseTalentsAndMutations from "./FormComponents/ChooseTalentsAndMutations";
 
 const steps = [
 	"Role",
@@ -36,6 +37,7 @@ export default function CreateCharacter() {
 	//the following two are only set and fetched when a role is decided on
 	const [specialistSkill, setSpecialistSkill] = useState({});
 	const [startingTalents, setStartingTalents] = useState([]);
+	const [chosenTalent, setChosenTalent] = useState({});
 	//characters only start with 2 mutations at most, given at random.
 	//Randomization will occur at backend to prevent cheating
 	const [mutation, setMutation] = useState({});
@@ -66,6 +68,7 @@ export default function CreateCharacter() {
 	const [empathy, setEmpathy] = useState(2);
 	const [attributePoints, setAttributePoints] = useState(0);
 	const [skillPoints, setSkillPoints] = useState(0);
+	const [chosenReducedAttribute, setChosenReducedAttribute] = useState("");
 	//role, attributePoints, setAttPoints, strength, agility, wits, empathy, setSt, setAg, setWits, setEmp
 	const [attributeArray, setAttributeArray] = useState([
 		{},
@@ -187,6 +190,7 @@ export default function CreateCharacter() {
 			role.keyAttribute,
 			attributePoints,
 			setAttributePoints,
+			chosenReducedAttribute,
 			strength,
 			agility,
 			wits,
@@ -196,7 +200,7 @@ export default function CreateCharacter() {
 			setWits,
 			setEmpathy
 		]);
-	}, [role, strength, agility, wits, empathy]);
+	}, [role, strength, agility, wits, empathy, chosenReducedAttribute]);
 
 	//skill array
 	useEffect(() => {
@@ -320,6 +324,10 @@ export default function CreateCharacter() {
 						skillArray={[[[skill1, skill2, skill3, skill4, skill5, skill6, skill7, skill8, skill9, skill10, skill11, skill12],[setSkill1, setSkill2, setSkill3, setSkill4, setSkill5, setSkill6, setSkill7, setSkill8, setSkill9, setSkill10, setSkill11, setSkill12]],skillArray]}
 					/>
 				);
+			case 3: 
+				return (
+					<ChooseTalentsAndMutations setMutation={setMutation} mutation={mutation} setSecondMutation={setSecondMutation} secondMutation={secondMutation} startingTalents={startingTalents} chosenTalent={chosenTalent} setChosenTalent={setChosenTalent} attributeArray={attributeArray} setChosenReducedAttribute={setChosenReducedAttribute} />
+				)
 			case 5:
 				return <SetInventory inventoryArray={inventoryArray} />;
 			case 6:
