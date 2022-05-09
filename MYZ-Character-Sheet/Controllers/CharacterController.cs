@@ -111,7 +111,7 @@ namespace MYZ_Character_Sheet.Controllers
             //post talents to database
             _talentRepository.AddCharacterTalents(character.Talents, character.Id);
 
-            return CreatedAtAction("Get", new { id = character.Id }, character);
+            return CreatedAtAction("GetById", new { id = character.Id }, character);
         }
 
         private UserProfile GetCurrentUserProfile()

@@ -90,7 +90,7 @@ export const createCharacter = (character) => {
             body: JSON.stringify(character)
         }).then(res => {
             if (res.ok) {
-                return res.status;
+                return res.json();
             } else if (res.status === 401) {
                 throw new Error("Unauthorized");
             } else {
