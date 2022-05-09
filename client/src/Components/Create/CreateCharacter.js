@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import {
 	Box,
 	Stepper,
@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import ChooseRole from "./FormComponents/ChooseRole";
 import { getAllRoles } from "../../Modules/roleManager";
-import { getSpecialtiesByRole, createCharacter } from "../../Modules/characterManager";
+import { getSpecialtiesByRole, createCharacter, saveCharacterChanges, getCharacterById } from "../../Modules/characterManager";
 import SetDetails from "./FormComponents/SetDetails";
 import SetInventory from "./FormComponents/SetInventory";
 import SetDen from "./FormComponents/SetDen";
@@ -19,6 +19,7 @@ import SetStats from "./FormComponents/SetStats/SetStats";
 import ChooseTalentsAndMutations from "./FormComponents/ChooseTalentsAndMutations";
 import SetRelationshipsAndDreams from "./FormComponents/SetRelationshipsAndDreams";
 import FinishCharacter from "./FormComponents/FinishCharacter";
+import EditTalentsAndMutations from "./FormComponents/EditTalentsAndMutations/EditTalentsAndMutations";
 
 const steps = [
 	"Role",
@@ -31,22 +32,30 @@ const steps = [
 	"Finish Character"
 ];
 
-export default function CreateCharacter() {
+export default function CreateCharacter({ edit }) {
 	const history = useHistory();
+	const {id} = useParams();
 	const [activeStep, setActiveStep] = useState(0);
 	const [completed, setCompleted] = useState({});
+	const [character, setCharacter] = useState({});
 	const [isRoleSelected, setIsRoleSelected] = useState(false);
 	const [roles, setRoles] = useState([]);
 	const [skills, setSkills] = useState([]);
 	const [role, setRole] = useState({});
 	//the following two are only set and fetched when a role is decided on
 	const [specialistSkill, setSpecialistSkill] = useState({});
+	//#region Not Editing Talents and Mutations
 	const [startingTalents, setStartingTalents] = useState([]);
 	const [chosenTalent, setChosenTalent] = useState({});
 	//characters only start with 2 mutations at most, given at random.
 	//Randomization will occur at backend to prevent cheating
 	const [mutation, setMutation] = useState({});
 	const [secondMutation, setSecondMutation] = useState({});
+	//#endregion
+	//#region Are Editing Talents and Mutations
+	const [talents, setTalents] = useState([]);
+	const [mutations, setMutations] = useState([]);
+	//#endregion
 	//#region Character State
 	//#region Character Details
 	const [name, setName] = useState("");
@@ -150,30 +159,156 @@ export default function CreateCharacter() {
 	//#endregion
 	//#endregion
 
-	//#region Use Effects
-	//initialization
+	//#region Use Effects and Relevant Functions
+	//initialization if we are not editing
 	useEffect(() => {
-		getAllRoles().then((roles) => setRoles(roles));
-		getAllBasicSkills().then((skills) => {
-			//#region setting skills
-			setSkill1(skills[0]);
-			setSkill2(skills[1]);
-			setSkill3(skills[2]);
-			setSkill4(skills[3]);
-			setSkill5(skills[4]);
-			setSkill6(skills[5]);
-			setSkill7(skills[6]);
-			setSkill8(skills[7]);
-			setSkill9(skills[8]);
-			setSkill10(skills[9]);
-			setSkill11(skills[10]);
-			setSkill12(skills[11]);
-			
-			//#endregion
-		});
-		setAttributePoints(14 - (strength + agility + wits + empathy));
-		setSkillPoints(10);
+		if (!edit) {
+			//normal initilization
+			getAllRoles().then((roles) => setRoles(roles));
+			getAllBasicSkills().then((skills) => {
+				//#region setting skills
+				setSkill1(skills[0]);
+				setSkill2(skills[1]);
+				setSkill3(skills[2]);
+				setSkill4(skills[3]);
+				setSkill5(skills[4]);
+				setSkill6(skills[5]);
+				setSkill7(skills[6]);
+				setSkill8(skills[7]);
+				setSkill9(skills[8]);
+				setSkill10(skills[9]);
+				setSkill11(skills[10]);
+				setSkill12(skills[11]);
+				
+				//#endregion
+			});
+			setAttributePoints(14 - (strength + agility + wits + empathy));
+			setSkillPoints(10);
+		}
 	}, []);
+
+	//initialization if we are editing
+	useEffect(() => {
+		if (edit) {
+			getCharacter();
+		}
+	}, [id]);
+
+	const getCharacter = () => {
+			getCharacterById(id).then((character) => {
+				setCharacter(character);
+				setName(character.name);
+				setStrength(character.strength);
+				setAgility(character.agility);
+				setWits(character.wits);
+				setEmpathy(character.empathy);
+				//this is zero because this charcter would have already spent all of these before being created
+				//it prevents them from adding more to these after already taking permanent damage to the base stat
+				setAttributePoints(0);
+				handleNullableStrings(character.weapons, setWeapons, "Weapons");
+				handleNullableStrings(character.armor, setArmor, "Armor");
+				handleNullableStrings(character.gear, setGear, "Gear");
+				handleNullableStrings(
+					character.tinyItems,
+					setTinyItems,
+					"Tiny Items"
+				);
+				handleNullableStrings(
+					character.denDescription,
+					setDenDescription,
+					"Den Description"
+				);
+				handleNullableStrings(character.denStash, setDenStash, "Den Stash");
+				handleNullableStrings(
+					character.protect,
+					setProtect,
+					"Who you want to Protect and Why"
+				);
+				handleNullableStrings(
+					character.hate,
+					setHate,
+					"Who you Hate and Why"
+				);
+				handleNullableStrings(character.dream, setDream, "Your Dream");
+				handleNullableStrings(
+					character.faceAppearance,
+					setFace,
+					"Your Facial Features"
+				);
+				handleNullableStrings(
+					character.bodyAppearance,
+					setBody,
+					"Your Body's Description"
+				);
+				handleNullableStrings(
+					character.clothingAppearance,
+					setClothing,
+					"Your Clothing's Description"
+				);
+				handleNullableStrings(
+					character.pcRelationship1,
+					setPcRel1,
+					"Relationship"
+				);
+				handleNullableStrings(
+					character.pcRelationship2,
+					setPcRel2,
+					"Relationship"
+				);
+				handleNullableStrings(
+					character.pcRelationship3,
+					setPcRel3,
+					"Relationship"
+				);
+				handleNullableStrings(
+					character.pcRelationship4,
+					setPcRel4,
+					"Relationship"
+				);
+				setBuddyBools({
+					buddy1: character.pcRelationship1Buddy,
+					buddy2: character.pcRelationship2Buddy,
+					buddy3: character.pcRelationship3Buddy,
+					buddy4: character.pcRelationship4Buddy
+				});
+				setSkill1(character.skills[0]);
+				setSkill2(character.skills[1]);
+				setSkill3(character.skills[2]);
+				setSkill4(character.skills[3]);
+				setSkill5(character.skills[4]);
+				setSkill6(character.skills[5]);
+				setSkill7(character.skills[6]);
+				setSkill8(character.skills[7]);
+				setSkill9(character.skills[8]);
+				setSkill10(character.skills[9]);
+				setSkill11(character.skills[10]);
+				setSkill12(character.skills[11]);
+				setSpecialistSkill(character.skills[12]);
+				//setting skill points to zero to prevent them from adding points
+				//that do not already exist on the character
+				setSkillPoints(0);
+				setTalents(character.talents);
+				setMutations(character.mutations);
+				// return statement to allow for a .then
+				return character;
+			})
+			.then((character) =>
+			//grab all roles and set the correct role 
+			getAllRoles().then((roles) => {
+				setRoles(roles);
+				setRole(roles.find(r => r.id === character.role.id));
+				setIsRoleSelected(true);
+			}));
+	};
+
+	//for handling nullable strings when setting character state
+	const handleNullableStrings = (string, setter, title) => {
+		if (string === null) {
+			setter(`Add ${title} Here`);
+		} else {
+			setter(string);
+		}
+	};
 
 	//details array
 	useEffect(() => {
@@ -300,49 +435,113 @@ export default function CreateCharacter() {
 	};
 
 	const saveCharacter = () => {
-		//add skills to a skills array
-		const _skills = [skill1, skill2, skill3, skill4, skill5, skill6, skill7, skill8, skill9, skill10, skill11, skill12, specialistSkill];
+		//make sure all points are used
+		if (skillPoints !== 0 || attributePoints !== 0) {
+			//add skills to a skills array
+			const _skills = [skill1, skill2, skill3, skill4, skill5, skill6, skill7, skill8, skill9, skill10, skill11, skill12, specialistSkill];
 
-		//make mutations array
-		const _mutations = [mutation];
-		if (secondMutation.name) {
-			_mutations.push(secondMutation);
+			//make mutations array
+			const _mutations = [mutation];
+			if (secondMutation.name) {
+				_mutations.push(secondMutation);
+			}
+
+			//save character based on whether or not we are editing
+			if (!edit) {
+				//make sure we have a talent and mutation and name chosen
+				if(chosenTalent.name && mutation.name && name !== "") {
+					const character = {
+						roleId: role.id,
+						role: role,
+						skills: _skills,
+						talents: [chosenTalent],
+						mutations: _mutations,
+						name: name,
+						faceAppearance: faceAppearance,
+						bodyAppearance: bodyAppearance,
+						clothingAppearance: clothingAppearance,
+						strength: strength,
+						agility: agility,
+						wits: wits,
+						empathy: empathy,
+						pcRelationship1: pcRel1,
+						pcRelationship2: pcRel2,
+						pcRelationship3: pcRel3,
+						pcRelationship4: pcRel4,
+						pcRelationship1Buddy: buddyBools.buddy1,
+						pcRelationship2Buddy: buddyBools.buddy2,
+						pcRelationship3Buddy: buddyBools.buddy3,
+						pcRelationship4Buddy: buddyBools.buddy4,
+						hate: hate,
+						protect: protect,
+						dream: dream,
+						weapons: weapons,
+						armor: armor,
+						gear: gear,
+						tinyItems: tinyItems,
+						denDescription: denDescription,
+						denStash: denStash
+					};
+
+					createCharacter(character).then((c) => history.push(`/character/${c.id}`));
+				} else {
+					window.alert("Please select a Name, Talent, and Mutation before saving your created character.");
+				}
+			} else {
+				//make a shallow copy of our character
+			const copy = {...character};
+			//function to handle character property changes
+			const changeProp = (charProp, currentState) => {
+				if (copy[charProp] !== currentState) {
+					if (typeof(currentState) === "string")
+					{
+						//handle nulls and whitespaces to make sure they are set as mull
+						if (currentState === null || !currentState.trim()) {
+							copy[charProp] = null;
+						} else {
+							copy[charProp] = currentState;
+						}
+					} else {
+						copy[charProp] = currentState;
+					}
+				}
+			};
+			//update all of the properties as needed
+			changeProp("strength", strength);
+			changeProp("agility", agility);
+			changeProp("wits", wits);
+			changeProp("empathy", empathy);
+			changeProp("weapons", weapons);
+			changeProp("armor", armor);
+			changeProp("gear", gear);
+			changeProp("tinyItems", tinyItems);
+			changeProp("denDescription", denDescription);
+			changeProp("denStash", denStash);
+			changeProp("clothingAppearance", clothingAppearance);
+			changeProp("bodyAppearance", bodyAppearance);
+			changeProp("clothingAppearance", clothingAppearance);
+			changeProp("pcRelationship1", pcRel1);
+			changeProp("pcRelationship2", pcRel2);
+			changeProp("pcRelationship3", pcRel3);
+			changeProp("pcRelationship4", pcRel4);
+			changeProp("pcRelationship1Buddy", buddyBools.buddy1);
+			changeProp("pcRelationship2Buddy", buddyBools.buddy2);
+			changeProp("pcRelationship3Buddy", buddyBools.buddy3);
+			changeProp("pcRelationship4Buddy", buddyBools.buddy4);
+			changeProp("hate", hate);
+			changeProp("protect", protect);
+			changeProp("dream", dream);
+			//won't do a comparison for time's sake. Just changing it.
+			copy.talents = talents;
+			copy.mutations = mutations;
+			copy.skills = _skills;
+
+			//now send the updated character to the database
+			saveCharacterChanges(character.id, copy).then(() => getCharacter());
+			}
+		} else {
+			window.alert("Please use all Attribute and Skill points before saving your character.");
 		}
-
-		const character = {
-			roleId: role.id,
-			role: role,
-			skills: _skills,
-			talents: [chosenTalent],
-			mutations: _mutations,
-			name: name,
-			faceAppearance: faceAppearance,
-			bodyAppearance: bodyAppearance,
-			clothingAppearance: clothingAppearance,
-			strength: strength,
-			agility: agility,
-			wits: wits,
-			empathy: empathy,
-			pcRelationship1: pcRel1,
-			pcRelationship2: pcRel2,
-			pcRelationship3: pcRel3,
-			pcRelationship4: pcRel4,
-			pcRelationship1Buddy: buddyBools.buddy1,
-			pcRelationship2Buddy: buddyBools.buddy2,
-			pcRelationship3Buddy: buddyBools.buddy3,
-			pcRelationship4Buddy: buddyBools.buddy4,
-			hate: hate,
-			protect: protect,
-			dream: dream,
-			weapons: weapons,
-			armor: armor,
-			gear: gear,
-			tinyItems: tinyItems,
-			denDescription: denDescription,
-			denStash: denStash
-		};
-
-		createCharacter(character).then((c) => history.push(`/character/${c.id}`));
 	}
 
 	//#region Stepper Logic
@@ -423,9 +622,15 @@ export default function CreateCharacter() {
 					/>
 				);
 			case 3: 
-				return (
-					<ChooseTalentsAndMutations setMutation={setMutation} mutation={mutation} setSecondMutation={setSecondMutation} secondMutation={secondMutation} startingTalents={startingTalents} chosenTalent={chosenTalent} setChosenTalent={setChosenTalent} attributeArray={attributeArray} setChosenReducedAttribute={setChosenReducedAttribute} />
-				);
+				if (edit) {
+					return (
+						<EditTalentsAndMutations talents={talents} setTalents={setTalents} mutations={mutations} setMutations={setMutations} role={role} />
+					)
+				} else {
+					return (
+						<ChooseTalentsAndMutations setMutation={setMutation} mutation={mutation} setSecondMutation={setSecondMutation} secondMutation={secondMutation} startingTalents={startingTalents} chosenTalent={chosenTalent} setChosenTalent={setChosenTalent} attributeArray={attributeArray} setChosenReducedAttribute={setChosenReducedAttribute} />
+					);
+				}
 			case 4:
 				return <SetRelationshipsAndDreams personalArray={personalArray} />
 			case 5:

@@ -7,5 +7,6 @@ namespace MYZ_Character_Sheet.Repositories
     {
         Mutation GetByRandom();
         void AddCharacterMutations(List<Mutation> mutations, int characterId);
+        void DeleteCharacterMutations(int characterId);
     }
 }

@@ -45,6 +45,74 @@ namespace MYZ_Character_Sheet.Repositories
             }
         }
 
+        public List<Talent> GetAllBasicTalents()
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT Id, RoleId, [Name], [Description]
+                          FROM Talent
+                         WHERE RoleId IS NULL";
+
+                    List<Talent> talents = new List<Talent>();
+
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        talents.Add(new Talent()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            RoleId = DbUtils.GetNullableInt(reader, "RoleId"),
+                            Name = DbUtils.GetString(reader, "Name"),
+                            Description = DbUtils.GetString(reader, "Description"),
+                        });
+                    }
+
+                    reader.Close();
+                    return talents;
+                }
+            }
+        }
+
+        public List<Talent> GetAllTalentsByRole(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"
+                        SELECT Id, RoleId, [Name], [Description]
+                          FROM Talent
+                         WHERE RoleId = @id";
+
+                    DbUtils.AddParameter(cmd, "@id", id);
+
+                    List<Talent> talents = new List<Talent>();
+
+                    var reader = cmd.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        talents.Add(new Talent()
+                        {
+                            Id = DbUtils.GetInt(reader, "Id"),
+                            RoleId = DbUtils.GetNullableInt(reader, "RoleId"),
+                            Name = DbUtils.GetString(reader, "Name"),
+                            Description = DbUtils.GetString(reader, "Description"),
+                        });
+                    }
+
+                    reader.Close();
+                    return talents;
+                }
+            }
+        }
+
         public void AddCharacterTalents(List<Talent> talents, int characterId)
         {
             using (var conn = Connection)
@@ -68,6 +136,20 @@ namespace MYZ_Character_Sheet.Repositories
 
                     DbUtils.AddParameter(cmd, "@characterId", characterId);
 
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void DeleteCharacterTalents(int characterId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "DELETE FROM CharacterTalent WHERE CharacterId = @characterId";
+                    DbUtils.AddParameter(cmd, "@characterId", characterId);
                     cmd.ExecuteNonQuery();
                 }
             }
