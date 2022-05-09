@@ -75,6 +75,7 @@ namespace MYZ_Character_Sheet
             services.AddTransient<IRoleRepository, RoleRepository>();
             services.AddTransient<ISkillRepository, SkillRepository>();
             services.AddTransient<IMutationRepository, MutationRepository>();
+            services.AddTransient<ITalentRepository, TalentRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

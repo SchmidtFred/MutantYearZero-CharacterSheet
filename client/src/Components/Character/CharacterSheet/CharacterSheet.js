@@ -210,10 +210,10 @@ export default function CharacterSheet() {
 				"Relationship"
 			);
 			setBuddyBools({
-				buddy1: character.PcRelationship1Buddy,
-				buddy2: character.PcRelationship2Buddy,
-				buddy3: character.PcRelationship3Buddy,
-				buddy4: character.PcRelationship4Buddy
+				buddy1: character.pcRelationship1Buddy,
+				buddy2: character.pcRelationship2Buddy,
+				buddy3: character.pcRelationship3Buddy,
+				buddy4: character.pcRelationship4Buddy
 			});
 		});
 	};

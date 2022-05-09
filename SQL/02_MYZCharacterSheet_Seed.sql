@@ -45,14 +45,14 @@ SET IDENTITY_INSERT [Skill] OFF
 SET IDENTITY_INSERT [Talent] ON
 INSERT INTO [Talent] ([Id], [RoleId], [Name], [Description])
 VALUES (1, 1, 'Barge Through', '63'), (2, 1, 'Mean Streak', '63'), (3, 1, 'Sucker Punch', '63'), (4, 2, 'Inventor', '63'), (5, 2, 'Motorhead', '63'), (6, 2, 'Tinkerer', '64'), (7, 3, 'Monster Hunter', '64'),
-	(8, 3, 'Rot Finder', '64'), (9, 3, 'Scavenger', '64'), (10, 4, 'Juicy Info', '64'), (11, 4, 'Juicy Info', '64'), (12, 4, 'Vicious Creep', '64'), (13, 4, 'Wheeler Dealer', '64'), (14, 5, 'Bloodhound', '64'),
-	(15, 5, 'Fight Dog', '64'), (16, 5, 'Mutant’s Best Friend', '65'), (17, 6, 'Agitator', '65'), (18, 6, 'Bonesaw', '65'), (19, 6, 'Performer', '65'), (20, 7, 'Commander', '65'), (21, 7, 'Gunslingers', '65'),
-	(22, 7, 'Racketeer', '65'), (23, 8, 'Cynic', '65'), (24, 8, 'Rebel', '65'), (25, 8, 'Resilient', '65'), (26, null, 'Admirer', '65'), (27, null, 'Archeologist', '65'), (28, null, 'Assassin', '65'), 
-	(29, null, 'Bad Omens', '65'), (30, null, 'Bodyguard', '65'), (31, null, 'Butcher', '66'), (32, null, 'Combat Veteran', '66'), (33, null, 'Cool Head', '66'), (34, null, 'Counselor', '66'), 
-	(35, null, 'Coward', '66'), (36, null, 'Fast Draw', '66'), (37, null, 'Flyweight', '66'), (38, null, 'Gadgeteer', '66'), (39, null, 'Good Footwork', '66'), (40, null, 'Hard Hitter', '66'), 
-	(41, null, 'Jack Of All Trades', '66'), (42, null, 'Light Eater', '67'), (43, null, 'Loner', '67'), (44, null, 'Loner', '67'), (45, null, 'Never Surrender', '67'), (46, null, 'Pack Mule', '67'), 
-	(47, null, 'Personal Arthmetic', '67'), (48, null, 'Sharpshooter', '67'), (49, null, 'Sleepless', '67'), (50, null, 'Stoic', '67'), (51, null, 'Therapist', '67'), (52, null, 'Weapon Specialist', '67'),
-	(53, null, 'Workhorse', '66'), (54, null, 'Zone Cook', '67');
+	(8, 3, 'Rot Finder', '64'), (9, 3, 'Scavenger', '64'), (10, 4, 'Juicy Info', '64'), (11, 4, 'Vicious Creep', '64'), (12, 4, 'Wheeler Dealer', '64'), (13, 5, 'Bloodhound', '64'),
+	(14, 5, 'Fight Dog', '64'), (15, 5, 'Mutant''s Best Friend', '65'), (16, 6, 'Agitator', '65'), (17, 6, 'Bonesaw', '65'), (18, 6, 'Performer', '65'), (19, 7, 'Commander', '65'), (20, 7, 'Gunslingers', '65'),
+	(21, 7, 'Racketeer', '65'), (22, 8, 'Cynic', '65'), (23, 8, 'Rebel', '65'), (24, 8, 'Resilient', '65'), (25, null, 'Admirer', '65'), (26, null, 'Archeologist', '65'), (27, null, 'Assassin', '65'), 
+	(28, null, 'Bad Omens', '65'), (29, null, 'Bodyguard', '65'), (30, null, 'Butcher', '66'), (31, null, 'Combat Veteran', '66'), (32, null, 'Cool Head', '66'), (33, null, 'Counselor', '66'), 
+	(34, null, 'Coward', '66'), (35, null, 'Fast Draw', '66'), (36, null, 'Flyweight', '66'), (37, null, 'Gadgeteer', '66'), (38, null, 'Good Footwork', '66'), (39, null, 'Hard Hitter', '66'), 
+	(40, null, 'Jack Of All Trades', '66'), (41, null, 'Light Eater', '67'), (42, null, 'Loner', '67'), (43, null, 'Loner', '67'), (44, null, 'Never Surrender', '67'), (45, null, 'Pack Mule', '67'), 
+	(46, null, 'Personal Arthmetic', '67'), (47, null, 'Sharpshooter', '67'), (48, null, 'Sleepless', '67'), (49, null, 'Stoic', '67'), (50, null, 'Therapist', '67'), (51, null, 'Weapon Specialist', '67'),
+	(52, null, 'Workhorse', '66'), (53, null, 'Zone Cook', '67');
 SET IDENTITY_INSERT [Talent] OFF
 
 SET IDENTITY_INSERT [Mutation] ON

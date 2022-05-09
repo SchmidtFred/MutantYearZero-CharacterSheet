@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 import {
 	Box,
 	Stepper,
@@ -9,7 +10,7 @@ import {
 } from "@mui/material";
 import ChooseRole from "./FormComponents/ChooseRole";
 import { getAllRoles } from "../../Modules/roleManager";
-import { getSpecialtiesByRole } from "../../Modules/characterManager";
+import { getSpecialtiesByRole, createCharacter } from "../../Modules/characterManager";
 import SetDetails from "./FormComponents/SetDetails";
 import SetInventory from "./FormComponents/SetInventory";
 import SetDen from "./FormComponents/SetDen";
@@ -17,6 +18,7 @@ import { getAllBasicSkills } from "../../Modules/skillManager";
 import SetStats from "./FormComponents/SetStats/SetStats";
 import ChooseTalentsAndMutations from "./FormComponents/ChooseTalentsAndMutations";
 import SetRelationshipsAndDreams from "./FormComponents/SetRelationshipsAndDreams";
+import FinishCharacter from "./FormComponents/FinishCharacter";
 
 const steps = [
 	"Role",
@@ -25,10 +27,12 @@ const steps = [
 	"Talent and Mutation",
 	"Relationships and Dream",
 	"Inventory",
-	"Den"
+	"Den",
+	"Finish Character"
 ];
 
 export default function CreateCharacter() {
+	const history = useHistory();
 	const [activeStep, setActiveStep] = useState(0);
 	const [completed, setCompleted] = useState({});
 	const [isRoleSelected, setIsRoleSelected] = useState(false);
@@ -295,6 +299,52 @@ export default function CreateCharacter() {
 		});
 	};
 
+	const saveCharacter = () => {
+		//add skills to a skills array
+		const _skills = [skill1, skill2, skill3, skill4, skill5, skill6, skill7, skill8, skill9, skill10, skill11, skill12, specialistSkill];
+
+		//make mutations array
+		const _mutations = [mutation];
+		if (secondMutation.name) {
+			_mutations.push(secondMutation);
+		}
+
+		const character = {
+			roleId: role.id,
+			role: role,
+			skills: _skills,
+			talents: [chosenTalent],
+			mutations: _mutations,
+			name: name,
+			faceAppearance: faceAppearance,
+			bodyAppearance: bodyAppearance,
+			clothingAppearance: clothingAppearance,
+			strength: strength,
+			agility: agility,
+			wits: wits,
+			empathy: empathy,
+			pcRelationship1: pcRel1,
+			pcRelationship2: pcRel2,
+			pcRelationship3: pcRel3,
+			pcRelationship4: pcRel4,
+			pcRelationship1Buddy: buddyBools.buddy1,
+			pcRelationship2Buddy: buddyBools.buddy2,
+			pcRelationship3Buddy: buddyBools.buddy3,
+			pcRelationship4Buddy: buddyBools.buddy4,
+			hate: hate,
+			protect: protect,
+			dream: dream,
+			weapons: weapons,
+			armor: armor,
+			gear: gear,
+			tinyItems: tinyItems,
+			denDescription: denDescription,
+			denStash: denStash
+		};
+
+		createCharacter(character).then((c) => history.push(`/character/${c.id}`));
+	}
+
 	//#region Stepper Logic
 	const totalSteps = () => {
 		return steps.length;
@@ -339,6 +389,7 @@ export default function CreateCharacter() {
 		}
 	};
 
+	//TODO use this to mark when steps are completed by meeting certain criteria
 	const handleComplete = () => {
 		const newCompleted = completed;
 		newCompleted[activeStep] = true;
@@ -381,6 +432,8 @@ export default function CreateCharacter() {
 				return <SetInventory inventoryArray={inventoryArray} />;
 			case 6:
 				return <SetDen denArray={denArray} />;
+			case 7:
+				return <FinishCharacter saveCharacter={saveCharacter} />
 			default:
 				return (
 					<Typography sx={{ mt: 2, mb: 1 }}>
@@ -403,26 +456,6 @@ export default function CreateCharacter() {
 				))}
 			</Stepper>
 			<div>
-				{allStepsCompleted() ? (
-					<>
-						<Typography sx={{ mt: 2, mb: 1 }}>
-							Finished Character Options to save character will go
-							here.
-						</Typography>
-						<Box
-							sx={{
-								display: "flex",
-								flexDirection: "row",
-								pt: 2
-							}}
-						>
-							<Box sx={{ flex: "1 1 auto" }} />
-							<Button onClick={handleReset}>
-								Reset (Will eventually save)
-							</Button>
-						</Box>
-					</>
-				) : (
 					<>
 						<Box>
 							<FormComponent />
@@ -449,7 +482,7 @@ export default function CreateCharacter() {
 									? "Finish"
 									: "Next"}
 							</Button>
-							{activeStep !== steps.length &&
+							{/* {activeStep !== steps.length &&
 								(completed[activeStep] ? (
 									<Typography
 										variant="caption"
@@ -463,10 +496,9 @@ export default function CreateCharacter() {
 											? "Finish Incomplete Steps"
 											: "Complete Step"}
 									</Button>
-								))}
+								))} */}
 						</Box>
 					</>
-				)}
 			</div>
 		</Box>
 	);
