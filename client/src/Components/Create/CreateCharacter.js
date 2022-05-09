@@ -435,101 +435,112 @@ export default function CreateCharacter({ edit }) {
 	};
 
 	const saveCharacter = () => {
-		//add skills to a skills array
-		const _skills = [skill1, skill2, skill3, skill4, skill5, skill6, skill7, skill8, skill9, skill10, skill11, skill12, specialistSkill];
+		//make sure all points are used
+		if (skillPoints !== 0 || attributePoints !== 0) {
+			//add skills to a skills array
+			const _skills = [skill1, skill2, skill3, skill4, skill5, skill6, skill7, skill8, skill9, skill10, skill11, skill12, specialistSkill];
 
-		//make mutations array
-		const _mutations = [mutation];
-		if (secondMutation.name) {
-			_mutations.push(secondMutation);
-		}
+			//make mutations array
+			const _mutations = [mutation];
+			if (secondMutation.name) {
+				_mutations.push(secondMutation);
+			}
 
-		//save character based on whether or not we are editing
-		if (!edit) {
-			const character = {
-				roleId: role.id,
-				role: role,
-				skills: _skills,
-				talents: [chosenTalent],
-				mutations: _mutations,
-				name: name,
-				faceAppearance: faceAppearance,
-				bodyAppearance: bodyAppearance,
-				clothingAppearance: clothingAppearance,
-				strength: strength,
-				agility: agility,
-				wits: wits,
-				empathy: empathy,
-				pcRelationship1: pcRel1,
-				pcRelationship2: pcRel2,
-				pcRelationship3: pcRel3,
-				pcRelationship4: pcRel4,
-				pcRelationship1Buddy: buddyBools.buddy1,
-				pcRelationship2Buddy: buddyBools.buddy2,
-				pcRelationship3Buddy: buddyBools.buddy3,
-				pcRelationship4Buddy: buddyBools.buddy4,
-				hate: hate,
-				protect: protect,
-				dream: dream,
-				weapons: weapons,
-				armor: armor,
-				gear: gear,
-				tinyItems: tinyItems,
-				denDescription: denDescription,
-				denStash: denStash
-			};
+			//save character based on whether or not we are editing
+			if (!edit) {
+				//make sure we have a talent and mutation and name chosen
+				if(chosenTalent.name && mutation.name && name !== "") {
+					const character = {
+						roleId: role.id,
+						role: role,
+						skills: _skills,
+						talents: [chosenTalent],
+						mutations: _mutations,
+						name: name,
+						faceAppearance: faceAppearance,
+						bodyAppearance: bodyAppearance,
+						clothingAppearance: clothingAppearance,
+						strength: strength,
+						agility: agility,
+						wits: wits,
+						empathy: empathy,
+						pcRelationship1: pcRel1,
+						pcRelationship2: pcRel2,
+						pcRelationship3: pcRel3,
+						pcRelationship4: pcRel4,
+						pcRelationship1Buddy: buddyBools.buddy1,
+						pcRelationship2Buddy: buddyBools.buddy2,
+						pcRelationship3Buddy: buddyBools.buddy3,
+						pcRelationship4Buddy: buddyBools.buddy4,
+						hate: hate,
+						protect: protect,
+						dream: dream,
+						weapons: weapons,
+						armor: armor,
+						gear: gear,
+						tinyItems: tinyItems,
+						denDescription: denDescription,
+						denStash: denStash
+					};
 
-			createCharacter(character).then((c) => history.push(`/character/${c.id}`));
-		} else {
-			//make a shallow copy of our character
-		const copy = {...character};
-		//function to handle character property changes
-		const changeProp = (charProp, currentState) => {
-			if (copy[charProp] !== currentState) {
-				if (typeof(currentState) === "string")
-				{
-					//handle nulls and whitespaces to make sure they are set as mull
-					if (currentState === null || !currentState.trim()) {
-						copy[charProp] = null;
+					createCharacter(character).then((c) => history.push(`/character/${c.id}`));
+				} else {
+					window.alert("Please select a Name, Talent, and Mutation before saving your created character.");
+				}
+			} else {
+				//make a shallow copy of our character
+			const copy = {...character};
+			//function to handle character property changes
+			const changeProp = (charProp, currentState) => {
+				if (copy[charProp] !== currentState) {
+					if (typeof(currentState) === "string")
+					{
+						//handle nulls and whitespaces to make sure they are set as mull
+						if (currentState === null || !currentState.trim()) {
+							copy[charProp] = null;
+						} else {
+							copy[charProp] = currentState;
+						}
 					} else {
 						copy[charProp] = currentState;
 					}
-				} else {
-					copy[charProp] = currentState;
 				}
-			}
-		};
-		//update all of the properties as needed
-		changeProp("strength", strength);
-		changeProp("agility", agility);
-		changeProp("wits", wits);
-		changeProp("empathy", empathy);
-		changeProp("weapons", weapons);
-		changeProp("armor", armor);
-		changeProp("gear", gear);
-		changeProp("tinyItems", tinyItems);
-		changeProp("denDescription", denDescription);
-		changeProp("denStash", denStash);
-		changeProp("clothingAppearance", clothingAppearance);
-		changeProp("bodyAppearance", bodyAppearance);
-		changeProp("clothingAppearance", clothingAppearance);
-		changeProp("pcRelationship1", pcRel1);
-		changeProp("pcRelationship2", pcRel2);
-		changeProp("pcRelationship3", pcRel3);
-		changeProp("pcRelationship4", pcRel4);
-		changeProp("pcRelationship1Buddy", buddyBools.buddy1);
-		changeProp("pcRelationship2Buddy", buddyBools.buddy2);
-		changeProp("pcRelationship3Buddy", buddyBools.buddy3);
-		changeProp("pcRelationship4Buddy", buddyBools.buddy4);
-		changeProp("hate", hate);
-		changeProp("protect", protect);
-		changeProp("dream", dream);
-		//won't do a comparison for time's sake. Just changing it.
-		copy.talents = talents;
-		copy.mutations = mutations;
+			};
+			//update all of the properties as needed
+			changeProp("strength", strength);
+			changeProp("agility", agility);
+			changeProp("wits", wits);
+			changeProp("empathy", empathy);
+			changeProp("weapons", weapons);
+			changeProp("armor", armor);
+			changeProp("gear", gear);
+			changeProp("tinyItems", tinyItems);
+			changeProp("denDescription", denDescription);
+			changeProp("denStash", denStash);
+			changeProp("clothingAppearance", clothingAppearance);
+			changeProp("bodyAppearance", bodyAppearance);
+			changeProp("clothingAppearance", clothingAppearance);
+			changeProp("pcRelationship1", pcRel1);
+			changeProp("pcRelationship2", pcRel2);
+			changeProp("pcRelationship3", pcRel3);
+			changeProp("pcRelationship4", pcRel4);
+			changeProp("pcRelationship1Buddy", buddyBools.buddy1);
+			changeProp("pcRelationship2Buddy", buddyBools.buddy2);
+			changeProp("pcRelationship3Buddy", buddyBools.buddy3);
+			changeProp("pcRelationship4Buddy", buddyBools.buddy4);
+			changeProp("hate", hate);
+			changeProp("protect", protect);
+			changeProp("dream", dream);
+			//won't do a comparison for time's sake. Just changing it.
+			copy.talents = talents;
+			copy.mutations = mutations;
+			copy.skills = _skills;
 
-		//now send the updated character to the database
-		saveCharacterChanges(character.id, copy).then(() => getCharacter());
+			//now send the updated character to the database
+			saveCharacterChanges(character.id, copy).then(() => getCharacter());
+			}
+		} else {
+			window.alert("Please use all Attribute and Skill points before saving your character.");
 		}
 	}
 
