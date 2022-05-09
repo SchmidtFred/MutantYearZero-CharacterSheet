@@ -99,3 +99,22 @@ export const createCharacter = (character) => {
         })
     })
 }
+
+export const deleteCharacter = (id) => {
+    return getToken().then(token => {
+        return fetch(`${baseUrl}/${id}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(res => {
+            if (res.ok) {
+                return res.status;
+            } else if (res.status === 401) {
+                throw new Error("Unauthorized");
+            } else {
+                throw new Error("An uknown error occurred while trying to delete your character.");
+            }
+        })
+    })
+}

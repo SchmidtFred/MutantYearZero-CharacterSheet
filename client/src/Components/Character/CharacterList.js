@@ -22,7 +22,7 @@ export default function CharacterList() {
                 My Characters
             </Typography>
             <Grid container spacing="2" direction="column" alignContent='center'>
-                {characters.map(c => <Grid item key={c.id}><CharacterCard character={c} /></Grid>)}
+                {characters.map(c => <Grid item key={c.id}><CharacterCard character={c} getCharacters={getCharacters} /></Grid>)}
             </Grid> </>
             : 
             //Give option to create new character if the user does not yet have one.

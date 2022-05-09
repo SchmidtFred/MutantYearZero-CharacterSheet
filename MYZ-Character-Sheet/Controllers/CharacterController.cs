@@ -131,5 +131,12 @@ namespace MYZ_Character_Sheet.Controllers
             var firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
             return _userProfileRepository.GetByFirebaseUserId(firebaseUserId);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            _characterRepository.Delete(id);
+            return NoContent();
+        }
     }
 }
