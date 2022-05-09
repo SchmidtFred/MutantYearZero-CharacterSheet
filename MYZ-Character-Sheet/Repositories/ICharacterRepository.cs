@@ -10,5 +10,6 @@ namespace MYZ_Character_Sheet.Repositories
         void Update(Character character);
         TalMutByRole GetTalentMutationByRole(int id);
         void Add(Character character);
+        void Delete(int id);
     }
 }

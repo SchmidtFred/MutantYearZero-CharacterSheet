@@ -327,6 +327,20 @@ namespace MYZ_Character_Sheet.Repositories
             }
         }
 
+        public void Delete(int id)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "DELETE FROM Character WHERE Id = @id";
+                    DbUtils.AddParameter(cmd, "@id", id);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+
         private string _queryString = @"
                        SELECT c.Id AS CharacterId, c.UserProfileId, c.[Public], c.RoleId, c.[Name] AS CharacterName, c.ExperiencePoints, c.FaceAppearance, c.BodyAppearance,
                               c.ClothingAppearance, c.Strength, c.Agility, c.Wits, c.Empathy, c.Damage, c.Fatigue, c.Confusion, c.Doubt, c.Starving, c.Dehydrated,
