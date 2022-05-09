@@ -8,5 +8,6 @@ namespace MYZ_Character_Sheet.Repositories
         List<Skill> GetAllBasicSkills();
         Skill GetById(int id);
         void AddCharacterSkills(List<Skill> skills, int characterId);
+        void DeleteCharacterSkills(int characterId);
     }
 }

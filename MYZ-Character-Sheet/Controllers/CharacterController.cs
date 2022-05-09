@@ -83,6 +83,10 @@ namespace MYZ_Character_Sheet.Controllers
 
             _characterRepository.Update(character);
 
+            //Skills
+            _skillRepository.DeleteCharacterSkills(character.Id);
+            _skillRepository.AddCharacterSkills(character.Skills, character.Id);
+
             //Talents
             _talentRepository.DeleteCharacterTalents(character.Id);
             _talentRepository.AddCharacterTalents(character.Talents, character.Id);
