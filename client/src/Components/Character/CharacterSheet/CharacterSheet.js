@@ -9,11 +9,16 @@ import CharacterMutations from "./CharacterMutationsAndTalents/CharacterMutation
 import { Grid } from "@mui/material";
 import CharacterTalents from "./CharacterMutationsAndTalents/CharacterTalents";
 import CharacterDetailsPanel from "./CharacterDetails/CharacterDetailsPanel";
+import { getAllBasicTalents, getAllTalentsByRole } from "../../../Modules/talentManager";
 
 export default function CharacterSheet() {
 	const [character, setCharacter] = useState({});
 	const [xp, setXp] = useState(0);
 	const [mutationPoints, setMp] = useState(0);
+	const [skills, setSkills] = useState([]);
+	const [availableTalents, setAvailableTalents] = useState([]);
+	const [characterTalents, setCharacterTalents] = useState([]);
+	const [characterMutations, setCharacterMutations] = useState([]);
 	//#region Attributes
 	const [strength, setStrength] = useState(0);
 	const [agility, setAgility] = useState(0);
@@ -129,6 +134,9 @@ export default function CharacterSheet() {
 			setCharacter(character);
 			setXp(character.experiencePoints);
 			setMp(character.mutationPoints);
+			setSkills(character.skills);
+			setCharacterTalents(character.talents);
+			setCharacterMutations(character.mutations);
 			setStrength(character.strength);
 			setAgility(character.agility);
 			setWits(character.wits);
@@ -215,6 +223,17 @@ export default function CharacterSheet() {
 				buddy3: character.pcRelationship3Buddy,
 				buddy4: character.pcRelationship4Buddy
 			});
+			getAllBasicTalents().then((basicTalents) => {
+				getAllTalentsByRole(character.role.id).then((roleTalents) => {
+					const _availableTalents = roleTalents.concat(basicTalents);
+					setAvailableTalents(
+						_availableTalents.filter(
+							(newT) =>
+								!character.talents.find((oldT) => oldT.id === newT.id)
+						)
+					);
+				});
+			});
 		});
 	};
 
@@ -289,6 +308,9 @@ export default function CharacterSheet() {
 		changeProp("hate", hate);
 		changeProp("protect", protect);
 		changeProp("dream", dream);
+		copy.talents = characterTalents;
+		copy.mutations = characterMutations;
+		copy.skills = skills;
 
 		//now send the updated character to the database
 		saveCharacterChanges(character.id, copy).then(() => getCharacter);
@@ -394,10 +416,15 @@ export default function CharacterSheet() {
 		<>
 			<CharacterHeader
 				name={character.name}
-				role={character.role?.name}
+				role={character.role}
 				xp={xp}
 				setXp={setXp}
 				updateCharacter={updateCharacter}
+				skills={skills}
+				availableTalents={availableTalents}
+				characterTalents={characterTalents}
+				setCharacterTalents={setCharacterTalents}
+				setSkills={setSkills}
 			/>
 			<CharacterAttributes attributeArray={attributeArray} />
 			<CharacterCondition propArray={conditionsArray} />
@@ -407,11 +434,11 @@ export default function CharacterSheet() {
 				</Grid>
 				<Grid item container direction="column" flex={1}>
 					<CharacterMutations
-						mutations={character.mutations}
+						mutations={characterMutations}
 						mutationPoints={mutationPoints}
 						setMp={setMp}
 					/>
-					<CharacterTalents talents={character.talents} />
+					<CharacterTalents talents={characterTalents} />
 					<CharacterDetailsPanel
 						detailsArray={detailsArray}
 						personalArray={personalArray}
