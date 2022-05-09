@@ -82,6 +82,14 @@ namespace MYZ_Character_Sheet.Controllers
             }
 
             _characterRepository.Update(character);
+
+            //Talents
+            _talentRepository.DeleteCharacterTalents(character.Id);
+            _talentRepository.AddCharacterTalents(character.Talents, character.Id);
+
+            //Mutations
+            _mutationRepository.DeleteCharacterMutations(character.Id);
+            _mutationRepository.AddCharacterMutations(character.Mutations, character.Id);
             return NoContent();
         }
 

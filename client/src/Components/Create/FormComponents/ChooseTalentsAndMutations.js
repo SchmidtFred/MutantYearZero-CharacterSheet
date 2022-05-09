@@ -177,7 +177,7 @@ export default function ChooseTalentsAndMutations(props) {
         return (
             <Dialog onClose={() => onClose(!secondMutation, false)} open={open}>
                 <DialogTitle>Warning</DialogTitle>
-                <Typography variant="body1">You don't get to choose your mutation. You must learn to make the most of hte mutation you've got, even if you would have preferred another. No one chooses what they are born with.</Typography>
+                <Typography variant="body1">You don't get to choose your mutation. You must learn to make the most of the mutation you've got, even if you would have preferred another. No one chooses what they are born with.</Typography>
                 <Typography variant="body1">However if another party member, or yourself, has drawn this same mutation you may redraw a new one to avoid duplicates.</Typography>
                 <ButtonGroup size="large" orientation="horizontal" variant="contained">
                                 <Button onClick={() => handleClose(!isSecondMutation, true)}>Draw</Button>
@@ -189,7 +189,7 @@ export default function ChooseTalentsAndMutations(props) {
 
     return (
         <Grid container direction="row" p={10} rowSpacing={2}>
-            <Grid container  direction="column" sx={{ flex: 1}}>
+            <Grid container item direction="column" sx={{ flex: 1}}>
                 <Grid item textAlign="center" mb={2}>
                     <Typography variant="h5">Your Starting Talent</Typography>
                     <Typography variant="body1">
@@ -214,7 +214,7 @@ export default function ChooseTalentsAndMutations(props) {
                         </TextField>
                     </Grid>
                     <Grid item >
-                        <Typography variant="body1" sx={{ flex: 1}}>{chosenTalent.description ? `See more details at Pg. ${chosenTalent.description} of the core rulebook` : "Select your starting talent."}</Typography>
+                        <Typography variant="body1" sx={{ flex: 1}}>{chosenTalent.description ? `See more details at Pg. ${chosenTalent.description} of the core rulebook.` : "Select your starting talent."}</Typography>
                     </Grid>
                 </Grid>
             </Grid>

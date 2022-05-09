@@ -19,7 +19,11 @@ export default function ApplicationViews({ isLoggedIn }) {
           </Route>
           
           <Route path="/create/character">
-            {isLoggedIn ? <CreateCharacter /> : <Redirect to="/login" />}
+            {isLoggedIn ? <CreateCharacter edit={false} /> : <Redirect to="/login" />}
+          </Route>
+
+          <Route path="/edit/character/:id(\d)">
+            {isLoggedIn ? <CreateCharacter edit={true} /> : <Redirect to="/login" />}
           </Route>
 
           <Route path="/login">

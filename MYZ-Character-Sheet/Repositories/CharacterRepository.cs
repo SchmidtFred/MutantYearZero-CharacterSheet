@@ -58,7 +58,8 @@ namespace MYZ_Character_Sheet.Repositories
                 conn.Open();
                 using (var cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = _queryString + " WHERE c.Id = @id";
+                    cmd.CommandText = _queryString + @" WHERE c.Id = @id
+                                                     ORDER BY s.Id";
 
                     DbUtils.AddParameter(cmd, "@id", id);
 

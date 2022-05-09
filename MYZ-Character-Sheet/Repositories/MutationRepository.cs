@@ -68,5 +68,19 @@ namespace MYZ_Character_Sheet.Repositories
                 }
             }
         }
+
+        public void DeleteCharacterMutations(int characterId)
+        {
+            using (var conn = Connection)
+            {
+                conn.Open();
+                using (var cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = "DELETE FROM CharacterMutation WHERE CharacterId = @characterId";
+                    DbUtils.AddParameter(cmd, "@characterId", characterId);
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }
