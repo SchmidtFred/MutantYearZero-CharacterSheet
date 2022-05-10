@@ -348,7 +348,7 @@ namespace MYZ_Character_Sheet.Repositories
                               c.PcRelationship1, c.PcRelationship2, c.PcRelationship3, c.PcRelationship4, c.PcRelationship1Buddy,
                               c.PcRelationship2Buddy, c.PcRelationship3Buddy, c.PcRelationship4Buddy, c.Hate, c.Protect, c.Dream, c.DenDescription, c.DenStash,
 
-                              r.[Name] AS RoleName,
+                              r.[Name] AS RoleName, r.KeyAttribute,
 
                               cs.[Value] AS SkillValue,
 
@@ -382,6 +382,7 @@ namespace MYZ_Character_Sheet.Repositories
                 {
                     Id = DbUtils.GetInt(reader, "RoleId"),
                     Name = DbUtils.GetNullableString(reader, "RoleName"),
+                    KeyAttribute = DbUtils.GetNullableString(reader, "KeyAttribute"),
                 },
                 Name = DbUtils.GetString(reader, "CharacterName"),
                 ExperiencePoints = DbUtils.GetInt(reader, "ExperiencePoints"),

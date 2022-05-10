@@ -16,7 +16,7 @@ export default function CharacterHeader({role, name, xp, setXp, updateCharacter,
     }
 
     const incrementXp = (event) => {
-        if (event.currentTarget.id == "xpUptick") {
+        if (event.currentTarget.id === "xpUptick") {
             setXp(xp + 1);
         } else {
             if (xp > 0)
