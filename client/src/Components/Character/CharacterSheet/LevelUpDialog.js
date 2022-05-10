@@ -65,8 +65,16 @@ export default function LevelUpDialog({
         }
     }
 
+	const dialogClose = () => {
+		setChosenSkill({});
+		setChosenSkillId(0);
+		setChosenTalent({});
+		setChosenTalentId(0);
+		handleClose();
+	}
+
 	return (
-		<Dialog open={open} onClose={handleClose}>
+		<Dialog open={open} onClose={dialogClose}>
 			<DialogTitle>Level Up</DialogTitle>
 			<Grid container direction="column" alignItems="center">
 				<Grid item>
@@ -147,6 +155,7 @@ export default function LevelUpDialog({
 				</Grid>
                 <Grid item>
                     <Button variant="contained" onClick={levelUp}>Confirm Level Up</Button>
+					<Button variant="contained" onClick={dialogClose}>Cancel</Button>
                 </Grid>
 			</Grid>
 		</Dialog>

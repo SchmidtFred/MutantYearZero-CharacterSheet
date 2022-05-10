@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router } from "react-router-dom";
-import { LinearProgress } from '@mui/material';
+import { LinearProgress, ThemeProvider } from '@mui/material';
 import ApplicationViews from './Components/ApplicationViews';
 import NavBar from './Components/NavBar';
 import { onLoginStatusChange } from "./Modules/authManager";
+import { theme } from './Components/Theme';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(null);
@@ -17,10 +18,12 @@ function App() {
   }
 
   return (
-    <Router>
-      <NavBar isLoggedIn={isLoggedIn}/>
-      <ApplicationViews isLoggedIn={isLoggedIn}/>
-    </Router>
+    <ThemeProvider theme={theme}>
+      <Router>
+        <NavBar isLoggedIn={isLoggedIn}/>
+        <ApplicationViews isLoggedIn={isLoggedIn}/>
+      </Router>
+    </ThemeProvider>
   );
 }
 
