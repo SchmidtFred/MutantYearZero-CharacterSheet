@@ -13,7 +13,8 @@ export default function AttributeDialog({
 	baseArray,
 	traumaArray,
 	onClose,
-	open
+	open,
+	keyAttribute
 }) {
 	const [base, setBase] = useState(0);
 	const [trauma, setTrauma] = useState(0);
@@ -27,7 +28,7 @@ export default function AttributeDialog({
 		setTrauma(_trauma);
 		setAttTitle(_attTitle);
 		setTrTitle(_trTitle);
-	}, [baseArray]);
+	}, [baseArray, traumaArray]);
 
 	const handleClose = () => {
 		onClose(base, trauma);
@@ -62,10 +63,12 @@ export default function AttributeDialog({
 							<Button
 								id="attributeValue--Uptick"
 								onClick={() => {
-                                    if (base + 1 < 6)
+                                    if (base + 1 < 5)
                                     {
                                         setBase(base + 1)
-                                    }
+                                    } else if (keyAttribute === attTitle && base + 1 < 6) {
+										setBase(base + 1)
+									}
                                 }}
 							>
 								<strong>⌃</strong>

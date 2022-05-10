@@ -21,7 +21,7 @@ export default function EditTalentsAndMutations(props) {
 	useEffect(() => {
 		getAllBasicTalents().then((talents) => setBasicTalents(talents));
 		getAllTalentsByRole(role.id).then((talents) => setAllRoleTalents(talents));
-	}, []);
+	}, [role.id]);
 
 	//this effect combines the other talents array to give us our choices of talents
 	useEffect(() => {
@@ -80,12 +80,14 @@ export default function EditTalentsAndMutations(props) {
                                 select
                                 sx={{ flex: 1}}
                                 label="Current Talent"
-                                value={talent.id ? talent.id : ""}
+                                value={allAvailableTalents.length > 0 ? talent.id : ""}
                                 defaultValue={""}
                                 name={`talents--${talent.id}`}
                                 onChange={handleTalentChange}
                                 required>
                                     {allAvailableTalents.map(t => (
+                                        //only show talents that would duplicate another option. Allow for the current selected talent to stay for reselection
+                                        talents.find(existingTalent => existingTalent.id === t.id) && t.id !== talent.id ? null :
                                         <MenuItem key={t.id} value={t.id}>
                                             {t.name}
                                         </MenuItem>

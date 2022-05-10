@@ -13,6 +13,7 @@ import { getAllBasicTalents, getAllTalentsByRole } from "../../../Modules/talent
 
 export default function CharacterSheet() {
 	const [character, setCharacter] = useState({});
+	const [keyAttribute, setKeyAttribute] = useState("");
 	const [xp, setXp] = useState(0);
 	const [mutationPoints, setMp] = useState(0);
 	const [skills, setSkills] = useState([]);
@@ -132,6 +133,7 @@ export default function CharacterSheet() {
 	const getCharacter = () => {
 		getCharacterById(id).then((character) => {
 			setCharacter(character);
+			setKeyAttribute(character.role.keyAttribute);
 			setXp(character.experiencePoints);
 			setMp(character.mutationPoints);
 			setSkills(character.skills);
@@ -426,7 +428,7 @@ export default function CharacterSheet() {
 				setCharacterTalents={setCharacterTalents}
 				setSkills={setSkills}
 			/>
-			<CharacterAttributes attributeArray={attributeArray} />
+			<CharacterAttributes attributeArray={attributeArray} keyAttribute={keyAttribute} />
 			<CharacterCondition propArray={conditionsArray} />
 			<Grid container>
 				<Grid item flex={1}>
@@ -434,9 +436,12 @@ export default function CharacterSheet() {
 				</Grid>
 				<Grid item container direction="column" flex={1}>
 					<CharacterMutations
-						mutations={characterMutations}
+						characterMutations={characterMutations}
+						setCharacterMutations={setCharacterMutations}
 						mutationPoints={mutationPoints}
 						setMp={setMp}
+						attributeArray={attributeArray}
+						keyAttribute={keyAttribute}
 					/>
 					<CharacterTalents talents={characterTalents} />
 					<CharacterDetailsPanel

@@ -80,7 +80,13 @@ namespace MYZ_Character_Sheet.Controllers
             {
                 return Unauthorized();
             }
+            //check for no more than four mutations
+            if (character.Mutations.Count > 4)
+            {
+                return BadRequest();
+            }
 
+            
             _characterRepository.Update(character);
 
             //Skills

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import AttributeDialog from "./AttributeDialog";
 
-export default function Attribute({ propArray }) {
+export default function Attribute({ propArray, keyAttribute }) {
     const [attTitle, base, setBase, trTitle, trauma, setTrauma] = propArray;
 	const [open, setOpen] = useState(false);
 
@@ -14,7 +14,7 @@ export default function Attribute({ propArray }) {
 	};
 
 	const handleClickClose = (newBase, newTrauma) => {
-		if (newTrauma != trauma || newBase != base) {
+		if (newTrauma !== trauma || newBase !== base) {
 			setBase(newBase);
 			setTrauma(newTrauma);
 		}
@@ -48,6 +48,7 @@ export default function Attribute({ propArray }) {
 				traumaArray={[trTitle, trauma]}
 				onClose={handleClickClose}
 				open={open}
+				keyAttribute={keyAttribute}
 			/>
 		</Box>
 	);
