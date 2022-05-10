@@ -61,7 +61,6 @@ export default function CharacterSheet() {
 		null
 	]);
 	//#endregion
-	//#region Details
 	//#region Equipment
 	const [weapons, setWeapons] = useState("");
 	const [armor, setArmor] = useState("");
@@ -79,6 +78,7 @@ export default function CharacterSheet() {
 	const [bodyAppearance, setBody] = useState("");
 	const [clothingAppearance, setClothing] = useState("");
 	//#endregion
+	//#region Details
 	const [detailsArray, setDetailsArray] = useState([
 		{
 			weapons: "weapons",

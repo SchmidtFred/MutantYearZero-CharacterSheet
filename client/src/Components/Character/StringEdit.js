@@ -15,11 +15,11 @@ export default {
             };
 
             return (
-                <Dialog onClose={() => handleClose(false)} open={open}>
-                    <DialogTitle>Edit</DialogTitle>
-                    <Grid container direction="column" spacing={2}>
-                        <Grid item>
-                            <TextField id="outlined-basic" label={title} onChange={(e) => setDialogString(e.target.value)} defaultValue={string} />
+                <Dialog onClose={() => handleClose(false)} open={open} fullWidth>
+                    <DialogTitle textAlign="center">Edit</DialogTitle>
+                    <Grid container direction="column" spacing={2} alignItems='center' >
+                        <Grid item sx={{width: "90%", display: 'flex', justifyContent: "center"}}>
+                            <TextField id="outlined-basic" color="secondary" variant="filled" label={title} onChange={(e) => setDialogString(e.target.value)} defaultValue={string} sx={{width: "inherit"}} />
                         </Grid>
                         <Grid item>
                             <ButtonGroup size="large" orientation="horizontal" variant="contained">

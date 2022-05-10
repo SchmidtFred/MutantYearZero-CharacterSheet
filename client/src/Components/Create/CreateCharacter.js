@@ -436,7 +436,7 @@ export default function CreateCharacter({ edit }) {
 
 	const saveCharacter = () => {
 		//make sure all points are used
-		if (skillPoints !== 0 || attributePoints !== 0) {
+		if (skillPoints === 0 && attributePoints === 0) {
 			//add skills to a skills array
 			const _skills = [skill1, skill2, skill3, skill4, skill5, skill6, skill7, skill8, skill9, skill10, skill11, skill12, specialistSkill];
 
