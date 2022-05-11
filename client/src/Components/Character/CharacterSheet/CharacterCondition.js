@@ -12,6 +12,7 @@ import {
 	Card
 } from "@mui/material";
 import  StringEdit from "../StringEdit";
+import {theme} from "../../Theme";
 
 export default function CharacterCondition({ propArray }) {
 	const [
@@ -59,7 +60,7 @@ export default function CharacterCondition({ propArray }) {
 
 	
 	return (
-		<Grid container direction="row" wrap="nowrap" alignItems="center">
+		<Grid container direction="row" wrap="nowrap" alignItems="center" p={1} sx={{ backgroundColor: theme.palette.primary.main}}>
 			<Grid item container direction="row" flex={1}>
 				<FormGroup>
 				<FormControlLabel
@@ -68,6 +69,7 @@ export default function CharacterCondition({ propArray }) {
 								checked={conditionBools.starving}
 								onChange={handleConditionChange}
 								name="starving"
+								color='success'
 							/>
 						}
 						label="Starving"
@@ -78,6 +80,7 @@ export default function CharacterCondition({ propArray }) {
 								checked={conditionBools.dehydrated}
 								onChange={handleConditionChange}
 								name="dehydrated"
+								color='success'
 							/>
 						}
 						label="Dehydrated"
@@ -90,6 +93,7 @@ export default function CharacterCondition({ propArray }) {
 								checked={conditionBools.sleepless}
 								onChange={handleConditionChange}
 								name="sleepless"
+								color='success'
 							/>
 						}
 						label="Sleepless"
@@ -100,6 +104,7 @@ export default function CharacterCondition({ propArray }) {
 								checked={conditionBools.hypothermic}
 								onChange={handleConditionChange}
 								name="hypothermic"
+								color='success'
 							/>
 						}
 						label="Hypothermic"
@@ -114,6 +119,7 @@ export default function CharacterCondition({ propArray }) {
 						size="small"
 						orientation="vertical"
 						variant="contained"
+						color='success'
 					>
 						<Button id="rpUptick" onClick={incrementRp}>
 							⌃

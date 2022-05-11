@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { NavLink as RRNavLink } from "react-router-dom";
-import { AppBar, Box, Toolbar, Link, Button, IconButton, Typography } from '@mui/material';
+import { AppBar, Box, Toolbar, Link, IconButton, Typography, Stack, Divider } from '@mui/material';
 import { logout } from "../Modules/authManager";
 
 export default function NavBar({ isLoggedIn }) {
-    const [isOpen, setIsOpen] = useState(false);
-    const toggle = () => setIsOpen(!isOpen);
 
     return (
         <Box sx={{ flexGrow: 1}}>
@@ -14,22 +12,22 @@ export default function NavBar({ isLoggedIn }) {
                     <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2}} >
                         MYZ Sheets
                     </IconButton>
-                    {isLoggedIn ?
-                    <>
-                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                            <Link component={RRNavLink} color="inherit" to="/">
-                                Home
-                            </Link>
-                        </Typography>
-                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                            <Link component={RRNavLink} color="inherit" to="/create/character">
-                                New Character
-                            </Link>
-                        </Typography>
-                        <Link component="button" color="inherit" onClick={() => logout()}>Logout</Link>
-                    </> : 
-                    null
-                    }
+                        {isLoggedIn ?
+                        <Stack direction="row" divider={<Divider orientation="vertical" flexItem />} sx={{ width: "100%", justifyContent: 'flex-start'}} spacing={2}>
+                            <Typography variant="h6" component="div">
+                                <Link component={RRNavLink} color="inherit" to="/">
+                                    Home
+                                </Link>
+                            </Typography>
+                            <Typography variant="h6" component="div">
+                                <Link component={RRNavLink} color="inherit" to="/create/character">
+                                    New Character
+                                </Link>
+                            </Typography>
+                            <Link sx={{ width: '75%', textAlign: 'right'}} component="button" color="inherit" onClick={() => logout()}>Logout</Link>
+                        </Stack> :
+                        null
+                        }
                 </Toolbar>
             </AppBar>
         </Box>

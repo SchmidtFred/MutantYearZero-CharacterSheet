@@ -16,6 +16,9 @@ export const theme = createTheme({
         default: '#dee4ea',
         paper: '#ead2b3',
         },
+        success: {
+            main: '#673f1e'
+        }
     },
     typography: {
         fontFamily: 'Nova Flat',
@@ -48,6 +51,13 @@ export const theme = createTheme({
             styleOverrides: {
                 root: {
                     boxShadow: '1px 1px #673f1e, -1px -1px #673f1e, 1px -1px #673f1e, -1px 1px #673f1e',
+                }
+            }
+        },
+        MuiCard: {
+            styleOverrides: {
+                root: {
+                    border: '1px solid #673f1e'
                 }
             }
         }

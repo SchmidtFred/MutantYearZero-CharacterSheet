@@ -8,6 +8,7 @@ import {
 	ButtonGroup
 } from "@mui/material";
 import DrawNewMutation from "./DrawNewMutation";
+import { theme } from "../../../Theme";
 
 export default function CharacterMutations({
 	characterMutations,
@@ -40,8 +41,8 @@ export default function CharacterMutations({
 	};
 
 	return (
-		<Box mt={2}>
-			<Typography variant="h5" textAlign="center">
+		<Box>
+			<Typography pt={2} pb={2} sx={{backgroundColor: theme.palette.primary.dark, color: 'white'}} variant="h5" textAlign="center">
 				Mutations
 			</Typography>
 			<Box

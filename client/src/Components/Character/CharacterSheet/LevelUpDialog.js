@@ -74,19 +74,19 @@ export default function LevelUpDialog({
 	}
 
 	return (
-		<Dialog open={open} onClose={dialogClose}>
-			<DialogTitle>Level Up</DialogTitle>
-			<Grid container direction="column" alignItems="center">
-				<Grid item>
+		<Dialog fullWidth open={open} onClose={dialogClose}>
+			<DialogTitle textAlign="center">Level Up</DialogTitle>
+			<Grid p={2} spacing={2} container direction="column" alignItems="center" height="100%">
+				<Grid item mb={3}>
 					<Typography variant="body1">
 						Select a Skill to level up or a new Talent to acquire.
 					</Typography>
 				</Grid>
-				<Grid item container m={3} spacing={3} alignItems="center">
-					<Grid item>
+				<Grid item container mb={3} spacing={3} wrap="nowrap" alignItems="center">
+					<Grid item xs={2}>
 						<Typography>Select Skill</Typography>
 					</Grid>
-					<Grid item>
+					<Grid item width="100%" xs={4}>
 						<TextField
 							select
 							sx={{ flex: 1 }}
@@ -111,7 +111,8 @@ export default function LevelUpDialog({
 							)}
 						</TextField>
 					</Grid>
-					<Grid item>
+					<Grid item xs={2}></Grid>
+					<Grid item xs={4}>
 						<Typography>
 							{chosenSkillId > 0
 								? `${chosenSkill.name} increases to ${chosenSkill.value + 1}`
@@ -119,21 +120,22 @@ export default function LevelUpDialog({
 						</Typography>
 					</Grid>
 				</Grid>
-				<Grid item container m={3} spacing={3} alignItems="center">
-					<Grid item>
+				<Grid item container mb={3} spacing={3} alignItems="center" wrap="nowrap">
+					<Grid item xs={2}>
 						<Typography>Select Talent</Typography>
 					</Grid>
-					<Grid item>
+					<Grid item width="100%" xs={4}>
 						<TextField
 							select
 							sx={{ flex: 1 }}
+							fullWidth
 							label="New Talent"
 							value={chosenTalentId}
 							defaultValue=""
 							name="NewTalent"
                             onChange={handleChange}
 						>
-							<MenuItem value={0}>Chose Talent...</MenuItem>
+							<MenuItem value={0}>Choose Talent...</MenuItem>
 							{availableTalents.map((talent) => {
 								return <MenuItem
 									key={talent.id}
@@ -145,8 +147,9 @@ export default function LevelUpDialog({
 							})}
 						</TextField>
 					</Grid>
-					<Grid item>
-						<Typography>
+					<Grid item xs={2}></Grid>
+					<Grid item xs={4}>
+						<Typography paragraph sx={{ width: "100%", whiteSpace: 'pre-line'}}>
 							{chosenTalentId > 0
 								? `See more details at Pg. ${chosenTalent.description} of the core rulebook.`
 								: "------"}

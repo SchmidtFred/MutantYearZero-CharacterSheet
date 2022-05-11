@@ -6,6 +6,7 @@ import CharacterDen from "./CharacterDen";
 import CharacterGoals from "./CharacterGoals";
 import CharacterAppearance from "./CharacterAppearance";
 import CharacterRelationships from "./CharacterRelationships";
+import { theme } from "../../../Theme";
 
 export default function CharacterDetailsPanel({ detailsArray, personalArray }) {	
 	const [equipmentDetails, inventoryDetails, denDetails, appearanceDetails] = detailsArray;
@@ -40,7 +41,7 @@ export default function CharacterDetailsPanel({ detailsArray, personalArray }) {
 
 	return (
 		<Box mt={2}>
-            <Typography variant="h5" textAlign="center">Character Details</Typography>
+            <Typography pt={2} pb={2} sx={{backgroundColor: theme.palette.primary.dark, color: 'white'}} variant="h5" textAlign="center">Character Details</Typography>
 			<Box sx={{ borderBottom: 1, bordercolor: "divider" }}>
 				<Tabs
 					value={tabState}

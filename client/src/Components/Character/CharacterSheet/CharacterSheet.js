@@ -10,6 +10,7 @@ import { Grid } from "@mui/material";
 import CharacterTalents from "./CharacterMutationsAndTalents/CharacterTalents";
 import CharacterDetailsPanel from "./CharacterDetails/CharacterDetailsPanel";
 import { getAllBasicTalents, getAllTalentsByRole } from "../../../Modules/talentManager";
+import { theme } from "../../Theme";
 
 export default function CharacterSheet() {
 	const [character, setCharacter] = useState({});
@@ -415,7 +416,8 @@ export default function CharacterSheet() {
 	
 
 	return (
-		<>
+		<Grid container direction="column" width="100%" sx={{display: 'flex'}} spacing={1} pl={10} pr={10}>
+			<Grid item>
 			<CharacterHeader
 				name={character.name}
 				role={character.role}
@@ -428,9 +430,14 @@ export default function CharacterSheet() {
 				setCharacterTalents={setCharacterTalents}
 				setSkills={setSkills}
 			/>
-			<CharacterAttributes attributeArray={attributeArray} keyAttribute={keyAttribute} />
-			<CharacterCondition propArray={conditionsArray} />
-			<Grid container>
+			</Grid>
+			<Grid item>
+				<CharacterAttributes attributeArray={attributeArray} keyAttribute={keyAttribute} />
+			</Grid>
+			<Grid item>
+				<CharacterCondition propArray={conditionsArray} />
+			</Grid>
+			<Grid container sx={{backgroundColor: theme.palette.primary.main}}>
 				<Grid item flex={1}>
 					<CharacterSkillsList skills={character.skills} />
 				</Grid>
@@ -450,6 +457,6 @@ export default function CharacterSheet() {
 					/>
 				</Grid>
 			</Grid>
-		</>
+		</Grid>
 	);
 }

@@ -18,7 +18,7 @@ export default function CharacterList() {
     return (
         <>
         {characters.length > 0 ?
-            <> <Typography align="center" gutterBottom={true} variant="h1">
+            <> <Typography align="center" gutterBottom={true} sx={{ borderBottom: '2px solid #673f1e', paddingBottom: 2, backgroundColor: '#ead2b3'}} variant="h1">
                 My Characters
             </Typography>
             <Grid container spacing="2" direction="column" alignContent='center'>
