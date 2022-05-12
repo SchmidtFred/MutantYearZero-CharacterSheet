@@ -20,6 +20,7 @@ import ChooseTalentsAndMutations from "./FormComponents/ChooseTalentsAndMutation
 import SetRelationshipsAndDreams from "./FormComponents/SetRelationshipsAndDreams";
 import FinishCharacter from "./FormComponents/FinishCharacter";
 import EditTalentsAndMutations from "./FormComponents/EditTalentsAndMutations/EditTalentsAndMutations";
+import { theme } from "../Theme";
 
 const steps = [
 	"Role",
@@ -642,38 +643,40 @@ export default function CreateCharacter({ edit }) {
 			default:
 				return (
 					<Typography sx={{ mt: 2, mb: 1 }}>
-						This is where we will render our form component in a Box
-						component
+						Something went wrong and you should not be seeing this.
 					</Typography>
 				);
 		}
 	};
 
 	return (
-		<Box sx={{ width: "100%" }} mt={3}>
-			<Stepper nonLinear activeStep={activeStep}>
-				{steps.map((label, index) => (
-					<Step key={label} completed={completed[index]}>
-						<StepButton color="inherit" onClick={handleStep(index)}>
-							{label}
-						</StepButton>
-					</Step>
-				))}
-			</Stepper>
+		<Box sx={{ width: "100%" }}>
+			<Box sx={{backgroundColor: theme.palette.primary.light, padding: '2rem'}}>
+				<Stepper nonLinear activeStep={activeStep}>
+					{steps.map((label, index) => (
+						<Step key={label} completed={completed[index]}>
+							<StepButton color="inherit" onClick={handleStep(index)}>
+								{label}
+							</StepButton>
+						</Step>
+					))}
+				</Stepper>
+			</Box>
 			<div>
-					<>
-						<Box>
-							<FormComponent />
-						</Box>
-						<Box
+				<>
+					<Box
 							sx={{
 								display: "flex",
 								flexDirection: "row",
-								pt: 2
+								pl: 2,
+								pr: 2,
+								mt: 2
+
 							}}
 						>
 							<Button
-								color="inherit"
+								color="primary"
+								variant="contained"
 								disabled={activeStep === 0}
 								onClick={handleBack}
 								sx={{ mr: 1 }}
@@ -682,7 +685,7 @@ export default function CreateCharacter({ edit }) {
 							</Button>
 							<Box sx={{ flex: "1 1 auto" }} />
 
-							<Button onClick={handleNext}>
+							<Button variant="contained" onClick={handleNext}>
 								{activeStep === steps.length - 1
 									? "Finish"
 									: "Next"}
@@ -703,6 +706,10 @@ export default function CreateCharacter({ edit }) {
 									</Button>
 								))} */}
 						</Box>
+						<Box>
+							<FormComponent />
+						</Box>
+						
 					</>
 			</div>
 		</Box>

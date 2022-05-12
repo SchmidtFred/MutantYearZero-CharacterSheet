@@ -49,12 +49,12 @@ export default function CharacterCard({ character, getCharacters }) {
                 </Box>
             </Box>
             <Dialog open={editOpen} onClose={handleEditClose}>
-                <DialogTitle>Warning</DialogTitle>
+                <DialogTitle textAlign="center" pt={2} pb={2}>Warning</DialogTitle>
                 <Grid container direction="column" spacing={2}>
                     <Grid item>
-                        <Typography variant="body1">Changes to your character made here can extend beyond what is allowed in the rules. Think carefully before commiting to changes you make when editing. Alterations to your character which follow the rules are available on your character sheet.</Typography>
+                        <Typography variant="body1" p={1}>Changes to your character made here can extend beyond what is allowed in the rules. Think carefully before commiting to changes you make when editing. Alterations to your character which follow the rules are available on your character sheet.</Typography>
                     </Grid>
-                    <Grid item>
+                    <Grid item p={1} sx={{display: 'flex', justifyContent: 'center'}}>
                         <ButtonGroup size="large" orientation="horizontal" variant="contained">
                             <Button component={Link} to={`/edit/character/${character.id}`} variant="contained">I Understand</Button>
                             <Button onClick={handleEditClose}>Cancel</Button>
