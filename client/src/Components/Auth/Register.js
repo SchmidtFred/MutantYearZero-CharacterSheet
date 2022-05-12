@@ -38,9 +38,11 @@ export default function Register() {
             <Grid item>
                 <TextField required={true} id="confirmPassword" name="confirmPassword" label="Confirm Password" type="password" onChange={e => setConfirmPassword(e.target.value)} />
             </Grid>
-            <Button variant="text" color="primary" type="submit">
-                Register
-            </Button>
+            <Grid item>
+              <Button variant="contained" color="primary" type="submit">
+                  Register
+              </Button>
+            </Grid>
         </Grid>
         <em>
           Wrong Place? <Link to="login">Login</Link>

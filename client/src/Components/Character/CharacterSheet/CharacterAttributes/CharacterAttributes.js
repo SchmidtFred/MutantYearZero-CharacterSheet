@@ -7,7 +7,7 @@ export default function CharacterAttributes({ attributeArray, keyAttribute }) {
 
 
 	return (
-		<Grid container m={1} rowSpacing={1} alignItems="center">
+		<Grid container spacing={2} alignItems="center" p={1}>
 			<Grid item sx={{ flex: 1 }}>
 				<Attribute
 					propArray={strengthArray}

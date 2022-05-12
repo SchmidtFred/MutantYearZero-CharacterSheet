@@ -16,6 +16,9 @@ export const theme = createTheme({
         default: '#dee4ea',
         paper: '#ead2b3',
         },
+        success: {
+            main: '#673f1e'
+        }
     },
     typography: {
         fontFamily: 'Nova Flat',
@@ -29,9 +32,9 @@ export const theme = createTheme({
         MuiDialogTitle: {
             styleOverrides: {
                 root: {
-                    backgroundColor: "#D08C42",
+                    backgroundColor: '#673f1e',
                     marginBottom: '1rem',
-                    borderBottom: '#673f1e solid 2px'
+                    color: 'white'
                 }
             }
         },
@@ -50,6 +53,31 @@ export const theme = createTheme({
                     boxShadow: '1px 1px #673f1e, -1px -1px #673f1e, 1px -1px #673f1e, -1px 1px #673f1e',
                 }
             }
-        }
+        },
+        MuiCard: {
+            styleOverrides: {
+                root: {
+                    border: '1px solid #673f1e'
+                }
+            }
+        },
+        MuiTab: {
+            styleOverrides: {
+                root: {
+                    color: 'black',
+                    "&.Mui-selected": {
+                        color: 'white',
+                        backgroundColor: '#673f1e'
+                    },
+                },
+            }
+        },
+        MuiTabs: {
+            styleOverrides: {
+                indicator: {
+                    backgroundColor: '#ead2b3'
+                }
+            }
+        },
     }
 });

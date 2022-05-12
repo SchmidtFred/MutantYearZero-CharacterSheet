@@ -163,9 +163,9 @@ export default function DrawNewMutation({open, handleClose, attributeArray, keyA
 
     return (
         <Dialog open={open} onClose={() => closeDialog(false)}>
-                <DialogTitle>Add Mutation</DialogTitle>
+                <DialogTitle p={1} textAlign="center">Add Mutation</DialogTitle>
                 {newMutation.name ? 
-                            <Grid item container direction="column" alignContent="center" textAlign="center" spacing={2} mb={2}>
+                            <Grid item container direction="column" alignContent="center" textAlign="center" spacing={3} mb={2} p={3}>
                                 <Grid item container justifyContent="space-between">
                                     <Grid item>
                                         <Typography variant="h6">{newMutation.name}</Typography>
@@ -199,9 +199,9 @@ export default function DrawNewMutation({open, handleClose, attributeArray, keyA
                                         </TextField>
                                     </Grid>
                                     <Grid item sx={{flex: 1}}>
-                                        <Typography variant="body1">You don't get to choose your mutation. You must learn to make the most of the mutation you've got, even if you would have preferred another. No one chooses what they are born with.</Typography>
+                                        <Typography variant="body1" mb={2}>You don't get to choose your mutation. You must learn to make the most of the mutation you've got, even if you would have preferred another. No one chooses what they are born with.</Typography>
                                         <Typography variant="body1">However if another party member, or yourself, has drawn this same mutation you may redraw a new one to avoid duplicates.</Typography>
-                                        <Grid item container>
+                                        <Grid item container justifyContent="center" mt={5}>
                                             <Grid item>
                                                 <Button variant="contained" onClick={retrieveNewMutation}>
                                                     ReDraw
@@ -251,7 +251,7 @@ export default function DrawNewMutation({open, handleClose, attributeArray, keyA
                                         </MenuItem>
                                     </TextField>
                                 </Grid>
-                                <Grid item container>
+                                <Grid item container justifyContent="center">
                                     <Grid item>
                                         <Button variant="contained" 
                                         onClick={retrieveNewMutation}>

@@ -8,6 +8,7 @@ import {
 	ButtonGroup
 } from "@mui/material";
 import DrawNewMutation from "./DrawNewMutation";
+import { theme } from "../../../Theme";
 
 export default function CharacterMutations({
 	characterMutations,
@@ -40,22 +41,32 @@ export default function CharacterMutations({
 	};
 
 	return (
-		<Box mt={2}>
-			<Typography variant="h5" textAlign="center">
+		<Box>
+			<Typography
+				pt={2}
+				pb={2}
+				sx={{
+					backgroundColor: theme.palette.primary.dark,
+					color: "white"
+				}}
+				variant="h5"
+				textAlign="center"
+			>
 				Mutations
 			</Typography>
 			<Box
 				alignItems="center"
-				sx={{ display: "flex", flexDirection: "row" }}
+				sx={{ display: "flex", flexDirection: "row", height: "10vh", pl: 1 }}
 			>
 				<Typography mr={3}>
-					Mutation Points: {mutationPoints}
+					Mutation Points: <strong>{mutationPoints}</strong>
 				</Typography>
 				<ButtonGroup
 					size="small"
 					orientation="vertical"
 					variant="contained"
-					mr={3}
+					sx={{ marginRight: 3 }}
+					color="success"
 				>
 					<Button id="mpUptick" onClick={incrementRp}>
 						⌃
@@ -64,11 +75,15 @@ export default function CharacterMutations({
 						⌄
 					</Button>
 				</ButtonGroup>
-				<Button onClick={handleOpen} variant="contained">
+				<Button
+					color="success"
+					onClick={handleOpen}
+					variant="contained"
+				>
 					Gain New Mutation
 				</Button>
 			</Box>
-			<Stack mt={1} divider={<Divider variant="middle" flexItem />}>
+			<Stack mt={1} pr={1} pl={1} mb={1} sx={{overflowY: 'auto', maxHeight: '10vh'}}>
 				{characterMutations?.map((mut) => {
 					return (
 						<Box
@@ -76,9 +91,10 @@ export default function CharacterMutations({
 							sx={{
 								display: "flex",
 								alignItems: "center",
-								justifyContent: "space-between"
+								justifyContent: "space-between",
+								backgroundColor: theme.palette.primary.light,
+								borderBottom: `2px solid ${theme.palette.primary.dark}`,
 							}}
-							mb={1}
 						>
 							<Typography variant="h6">{mut.name}</Typography>
 							<Typography variant="body1">

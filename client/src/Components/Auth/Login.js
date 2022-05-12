@@ -26,9 +26,11 @@ export default function Login() {
             <Grid item>
                 <TextField id="password" name="password" label="Password" type="password" onChange={e => setPassword(e.target.value)} />
             </Grid>
-            <Button variant="text" color="primary" type="submit">
-                Login
-            </Button>
+            <Grid item>
+              <Button variant="contained" color="primary" type="submit">
+                  Login
+              </Button>
+            </Grid>
         </Grid>
         <em>
           Not registered? <Link to="register">Register</Link>

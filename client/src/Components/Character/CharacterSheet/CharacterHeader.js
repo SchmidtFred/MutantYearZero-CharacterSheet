@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Grid, Box, ButtonGroup, Typography, Button} from "@mui/material";
 import LevelUpDialog from "./LevelUpDialog";
+import { theme } from "../../Theme";
 
 export default function CharacterHeader({role, name, xp, setXp, updateCharacter, skills, availableTalents, characterTalents, setCharacterTalents, setSkills }) {
     const [open, setOpen] = useState(false);
@@ -26,27 +27,27 @@ export default function CharacterHeader({role, name, xp, setXp, updateCharacter,
         }
     }
 
-    return <Grid container direction="row" mt={1} ml={1} spacing={"2em"} alignItems='center'>
-        <Grid item>
-            <Typography >Name: {name}</Typography>
+    return <Grid container direction="row" alignItems='center' p={3} spacing={0} sx={{ backgroundColor: theme.palette.primary.light}}>
+        <Grid item mr={4}>
+            <Typography variant="h3">{name}</Typography>
         </Grid>
-        <Grid item>
-        <Typography >Role: {role?.name}</Typography>
+        <Grid item mr={4}>
+        <Typography variant="h5">{role?.name}</Typography>
         </Grid>
-        <Grid item>
+        <Grid item mr={4}>
             <Box alignItems='center' sx={{display: "flex", flexDirection: "row"}}>
-                <Typography mr={3}>XP: {xp}</Typography>
-                <ButtonGroup size="small" orientation="vertical" variant="contained">
-                    <Button id="xpUptick" onClick={incrementXp}>⌃</Button>
-                    <Button id="xpDowntick" onClick={incrementXp}>⌄</Button>
+                <Typography variant="h6" mr={3}>XP: {xp}</Typography>
+                <ButtonGroup size="small" orientation="vertical" variant="contained" sx={{height: 40}}>
+                    <Button id="xpUptick" onClick={incrementXp} sx={{fontSize: "1rem", fontWeight: "bold", height: "50%"}}>^</Button>
+                    <Button id="xpDowntick" onClick={incrementXp} sx={{fontSize: "1rem", fontWeight: "bold", height: "50%"}}>⌄</Button>
                 </ButtonGroup>
             </Box>
         </Grid>
+        
+        {xp >= 5 ? <Grid item mr={4}><Button variant="contained" onClick={handleOpen}>Level Up</Button> </Grid>: null}
+        
         <Grid item>
-            {xp >= 5 ? <Button onClick={handleOpen}>Level Up</Button> : null}
-        </Grid>
-        <Grid item>
-            <Button onClick={updateCharacter}>Save Changes</Button>
+            <Button variant="contained" onClick={updateCharacter}>Save Changes</Button>
         </Grid> 
         <LevelUpDialog open={open} role={role} skills={skills} availableTalents={availableTalents} characterTalents={characterTalents} handleClose={handleClose} setCharacterTalents={setCharacterTalents} setSkills={setSkills} setXp={setXp} />   
     </Grid>
