@@ -49,7 +49,7 @@ export default function AttributeDialog({
 				}
 			}}
 		>
-			<DialogTitle>{attTitle}</DialogTitle>
+			<DialogTitle textAlign="center">{attTitle}</DialogTitle>
 			<Grid
 				container
 				component="div"
@@ -66,7 +66,7 @@ export default function AttributeDialog({
 							margin: "auto",
 							p: 1,
 							border: `2px solid ${theme.palette.primary.dark}`,
-							backgroundColor: "white",
+							backgroundColor: theme.palette.background.default,
 							display: "flex",
 							justifyContent: "center",
 							alignItems: "center"

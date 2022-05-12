@@ -21,7 +21,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <NavBar isLoggedIn={isLoggedIn}/>
-        <ApplicationViews isLoggedIn={isLoggedIn}/>
+        <ApplicationViews isLoggedIn={isLoggedIn} />
       </Router>
     </ThemeProvider>
   );

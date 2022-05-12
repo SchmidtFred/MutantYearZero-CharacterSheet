@@ -32,9 +32,9 @@ export const theme = createTheme({
         MuiDialogTitle: {
             styleOverrides: {
                 root: {
-                    backgroundColor: "#D08C42",
+                    backgroundColor: '#673f1e',
                     marginBottom: '1rem',
-                    borderBottom: '#673f1e solid 2px'
+                    color: 'white'
                 }
             }
         },
@@ -60,6 +60,24 @@ export const theme = createTheme({
                     border: '1px solid #673f1e'
                 }
             }
-        }
+        },
+        MuiTab: {
+            styleOverrides: {
+                root: {
+                    color: 'black',
+                    "&.Mui-selected": {
+                        color: 'white',
+                        backgroundColor: '#673f1e'
+                    },
+                },
+            }
+        },
+        MuiTabs: {
+            styleOverrides: {
+                indicator: {
+                    backgroundColor: '#ead2b3'
+                }
+            }
+        },
     }
 });
