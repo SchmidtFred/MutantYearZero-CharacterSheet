@@ -1,26 +1,32 @@
 import React from "react";
 import { Grid, Typography } from "@mui/material";
 import SetIndividualSkill from "./SetIndividualSkill";
+import { theme } from "../../../../Theme";
 
 export default function SetSkills({ skillArray }) {
 	const [
 		[skills, skillSetters],
-		[specialistSkill,
-		skillPoints,
-		setSpecialistSkill,
-		setSkillPoints]
+		[specialistSkill, skillPoints, setSpecialistSkill, setSkillPoints]
 	] = skillArray;
 
 	return (
-		<Grid item container direction="column" alignItems="center">
-			<Grid item textAlign="center" mb={2}>
-				<Typography variant="h5">Your Skills</Typography>
-				<Typography variant="body1">
+		<Grid item container direction="column" spacing={0}>
+			<Grid
+				item
+				textAlign="center"
+				mb={2}
+				width="100%"
+				backgroundColor={theme.palette.primary.main}
+				pt={2}
+				pb={2}
+			>
+				<Typography variant="h5" pt={2} pb={2}>Your Skills</Typography>
+				<Typography variant="body1" p={1}>
 					You have 10 points to distribute amongst your skills. No
 					skill is allowed to be set higher than 3. You must have one
 					point in your Specialist Skill.
 				</Typography>
-				<Typography variant="h6">Points: {skillPoints}</Typography>
+				<Typography variant="h6" p={1}>Points: {skillPoints}</Typography>
 			</Grid>
 
 			<Grid item container m={1} rowSpacing={1} alignItems="center">
@@ -38,8 +44,8 @@ export default function SetSkills({ skillArray }) {
 					/>
 				))}
 			</Grid>
-			
-			<Grid item m={1} alignItems="center">
+
+			<Grid item m={1} sx={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
 				<SetIndividualSkill
 					skill={specialistSkill}
 					setSkill={setSpecialistSkill}

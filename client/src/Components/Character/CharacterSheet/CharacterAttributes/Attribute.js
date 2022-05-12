@@ -4,9 +4,8 @@ import AttributeDialog from "./AttributeDialog";
 import { theme } from "../../../Theme";
 
 export default function Attribute({ propArray, keyAttribute }) {
-    const [attTitle, base, setBase, trTitle, trauma, setTrauma] = propArray;
+	const [attTitle, base, setBase, trTitle, trauma, setTrauma] = propArray;
 	const [open, setOpen] = useState(false);
-
 
 	const handleClickOpen = () => {
 		if (!open) {
@@ -27,15 +26,33 @@ export default function Attribute({ propArray, keyAttribute }) {
 			component="div"
 			textAlign="center"
 			sx={[
-				{ backgroundColor: theme.palette.primary.main},
+				{ backgroundColor: theme.palette.primary.main },
 				{ "&:hover": { cursor: "pointer" } }
 			]}
 			onClick={handleClickOpen}
 		>
-			<Typography component="div" variant="h5" sx={{borderBottom: `1px solid ${theme.palette.primary.dark}`, backgroundColor: theme.palette.primary.dark, color: 'white', mb: 1}}>
+			<Typography
+				component="div"
+				variant="h5"
+				sx={{
+					borderBottom: `1px solid ${theme.palette.primary.dark}`,
+					backgroundColor: theme.palette.primary.dark,
+					color: "white",
+					mb: 1
+				}}
+			>
 				{attTitle}
 			</Typography>
-			<Box sx={{ width: '2rem', height: '2rem', margin: 'auto', p: 1, border: `2px solid ${theme.palette.primary.dark}`, backgroundColor: theme.palette.primary.light}}>
+			<Box
+				sx={{
+					width: "2rem",
+					height: "2rem",
+					margin: "auto",
+					p: 1,
+					border: `2px solid ${theme.palette.primary.dark}`,
+					backgroundColor: theme.palette.primary.light
+				}}
+			>
 				<Typography variant="h5">
 					{base ? base - trauma : ""}
 				</Typography>
